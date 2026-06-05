@@ -11,40 +11,30 @@ export const metadata: Metadata = {
 const placeholderOfferings = [
 	{
 		id: 1,
-		label: '[PLACEHOLDER — Offering category]',
-		title: '[PLACEHOLDER — Offering 1 name]',
+		label: 'Energy & Sound Healing',
+		title: 'Reiki + Vibrational Sound Therapy',
 		description:
-			'[PLACEHOLDER — Full description of Offering 1: what it is, what to expect, who it\'s for, modalities used. 3–5 sentences.]',
+			'[PLACEHOLDER — Full description of the combined Reiki + Vibrational Sound Therapy session: what it is, what to expect, who it\'s for, how the two modalities work together. 3–5 sentences.]',
 		duration: '[PLACEHOLDER — Duration]',
 		format: '[PLACEHOLDER — Format, e.g. 1:1 / In-person / Remote / Both]',
 		investment: '[PLACEHOLDER — Price or price range]',
 	},
 	{
 		id: 2,
-		label: '[PLACEHOLDER — Offering category]',
-		title: '[PLACEHOLDER — Offering 2 name]',
+		label: 'Ceremony',
+		title: 'Rapé Ceremony',
 		description:
-			'[PLACEHOLDER — Full description of Offering 2.]',
+			'[PLACEHOLDER — Full description of Rapé Ceremony: what it is, what to expect, who it\'s for, how Nathan holds the container. 3–5 sentences.]',
 		duration: '[PLACEHOLDER — Duration]',
 		format: '[PLACEHOLDER — Format]',
 		investment: '[PLACEHOLDER — Price]',
 	},
 	{
 		id: 3,
-		label: '[PLACEHOLDER — Offering category]',
-		title: '[PLACEHOLDER — Offering 3 name]',
+		label: 'Free Consultation',
+		title: 'Free 15-Minute Consultation',
 		description:
-			'[PLACEHOLDER — Full description of Offering 3.]',
-		duration: '[PLACEHOLDER — Duration]',
-		format: '[PLACEHOLDER — Format]',
-		investment: '[PLACEHOLDER — Price]',
-	},
-	{
-		id: 4,
-		label: '[PLACEHOLDER — Offering category]',
-		title: '[PLACEHOLDER — Offering 4 name — e.g. Free Consultation]',
-		description:
-			'[PLACEHOLDER — Full description of Offering 4 / free consult. This is the primary conversion entry point — describe it warmly.]',
+			'[PLACEHOLDER — Full description of the free consult. This is the primary conversion entry point — describe it warmly, no pressure, exploratory. 3–5 sentences.]',
 		duration: '15 min',
 		format: '[PLACEHOLDER — Format]',
 		investment: 'Complimentary',

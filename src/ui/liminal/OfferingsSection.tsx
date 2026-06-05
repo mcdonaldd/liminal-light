@@ -1,4 +1,4 @@
-import { Energy, River, Ember, Air } from './icons'
+import { Energy, Ember, Air } from './icons'
 import type { ComponentType } from 'react'
 
 interface GlyphProps {
@@ -19,24 +19,15 @@ const offerings: {
 }[] = [
   {
     id: 1,
-    label: 'Energy Healing',
-    title: 'Reiki',
-    description: '[PLACEHOLDER — Short description of Reiki offering: what it is, who it is for, and what to expect. 2–3 sentences.]',
+    label: 'Energy & Sound Healing',
+    title: 'Reiki + Vibrational Sound Therapy',
+    description: '[PLACEHOLDER — Short description of the combined Reiki + Vibrational Sound Therapy session: what it is, who it is for, and what to expect. 2–3 sentences.]',
     duration: '[PLACEHOLDER — Duration]',
     format: '[PLACEHOLDER — Format]',
     Glyph: Energy,
   },
   {
     id: 2,
-    label: 'Sound Healing',
-    title: 'Vibrational Sound Therapy',
-    description: '[PLACEHOLDER — Short description of Vibrational Sound Therapy: what it is, who it is for, and what to expect. 2–3 sentences.]',
-    duration: '[PLACEHOLDER — Duration]',
-    format: '[PLACEHOLDER — Format]',
-    Glyph: River,
-  },
-  {
-    id: 3,
     label: 'Ceremony',
     title: 'Rapé Ceremony',
     description: '[PLACEHOLDER — Short description of Rapé Ceremony: what it is, who it is for, and what to expect. 2–3 sentences.]',
@@ -45,7 +36,7 @@ const offerings: {
     Glyph: Ember,
   },
   {
-    id: 4,
+    id: 3,
     label: 'Free Consultation',
     title: 'Free 15-Minute Consultation',
     description: '[PLACEHOLDER — Short description of the free consult: what happens in the call, no pressure, exploratory. 2–3 sentences.]',
