@@ -17,7 +17,9 @@ export default function Air({ size = 24, color = 'currentColor', strokeWidth = 1
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <path d="M12 12 C14 8 19 9 18 14 C17 19 11 20 8 16 C5 12 7 7 12 6" />
+      <path d="M3 8h11a3 3 0 1 0-3-3" />
+      <path d="M3 14h15a3 3 0 1 1-3 3" />
+      <path d="M3 20h7" />
     </svg>
   )
 }

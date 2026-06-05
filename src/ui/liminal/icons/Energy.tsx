@@ -17,10 +17,7 @@ export default function Energy({ size = 24, color = 'currentColor', strokeWidth 
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <path d="M12 8 Q15 7 15 10" />
-      <path d="M16 12 Q17 15 14 15" />
-      <path d="M12 16 Q9 17 9 14" />
-      <path d="M8 12 Q7 9 10 9" />
+      <path d="M13 2L4 14h6l-1 8 9-12h-6l1-8Z" />
     </svg>
   )
 }

@@ -17,8 +17,10 @@ export default function Belong({ size = 24, color = 'currentColor', strokeWidth 
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <path d="M7 21 C7 14 9 8 12 5" />
-      <path d="M17 21 C17 14 15 8 12 5" />
+      <circle cx="8" cy="10" r="3.5" />
+      <circle cx="16" cy="10" r="3.5" />
+      <path d="M4 20c0-3 2-5 4-5s4 2 4 5" />
+      <path d="M12 20c0-3 2-5 4-5s4 2 4 5" />
     </svg>
   )
 }
