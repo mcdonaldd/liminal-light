@@ -20,6 +20,7 @@ import Hero from '@/ui/liminal/Hero'
 import IsThisYou from '@/ui/liminal/IsThisYou'
 import LiminalFooter from '@/ui/liminal/LiminalFooter'
 import OfferingsSection from '@/ui/liminal/OfferingsSection'
+import SectionDivider from '@/ui/liminal/SectionDivider'
 import SubstackSection from '@/ui/liminal/SubstackSection'
 
 type Props = {
@@ -40,10 +41,15 @@ export default async function Page({ params }: Props) {
 			return (
 				<>
 					<Hero />
+					<SectionDivider />
 					<About />
+					<SectionDivider />
 					<OfferingsSection />
+					<SectionDivider />
 					<BookingCTA />
+					<SectionDivider />
 					<IsThisYou />
+					<SectionDivider />
 					<SubstackSection />
 					<LiminalFooter />
 				</>

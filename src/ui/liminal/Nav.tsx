@@ -63,7 +63,9 @@ export default function Nav() {
 					}}
 				>
 					<span>Liminal Light</span>
-					<FoilArc style={{ width: 100, height: 6 }} />
+					<span className="hidden md:block">
+						<FoilArc style={{ width: 100, height: 6 }} />
+					</span>
 				</Link>
 
 				{/* Desktop nav */}
