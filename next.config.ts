@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
 	reactCompiler: true,
 
 	images: {
-		localPatterns: [{ pathname: '/api/og' }],
+		localPatterns: [{ pathname: '/api/og' }, { pathname: '/**' }],
 		remotePatterns: [{ protocol: 'https', hostname: 'cdn.sanity.io' }],
 	},
 

@@ -26,11 +26,10 @@ export default function Nav() {
 				top: 0,
 				height: 'var(--nav-height)',
 				zIndex: 'var(--z-sticky)',
-				backgroundColor: scrolled ? 'rgba(244,235,220,0.85)' : 'var(--color-bg-primary)',
+				backgroundColor: scrolled ? 'rgba(234,212,168,0.88)' : 'var(--color-bg-primary)',
 				backdropFilter: scrolled ? 'blur(12px)' : 'none',
 				WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
-				borderBottom: scrolled ? '1px solid var(--color-border)' : '1px solid transparent',
-				transition: 'background-color var(--duration-slow) var(--ease-out), border-color var(--duration-slow) var(--ease-out), backdrop-filter var(--duration-slow) var(--ease-out)',
+				transition: 'background-color var(--duration-slow) var(--ease-out), backdrop-filter var(--duration-slow) var(--ease-out)',
 			}}
 		>
 			<div
@@ -49,10 +48,9 @@ export default function Nav() {
 				<Link
 					href="/"
 					style={{
-						fontFamily: 'var(--font-body)',
-						fontWeight: 600,
-						fontSize: 'var(--text-base)',
-						letterSpacing: 'var(--tracking-wide)',
+						fontFamily: 'var(--font-display)',
+						fontWeight: 400,
+						fontSize: 'var(--text-lg)',
 						color: 'var(--color-text-primary)',
 						textDecoration: 'none',
 						display: 'flex',
@@ -80,10 +78,11 @@ export default function Nav() {
 							style={{
 								fontFamily: 'var(--font-body)',
 								fontWeight: 500,
-								fontSize: 'var(--text-sm)',
+								fontSize: '11px',
 								color: 'var(--color-text-secondary)',
 								textDecoration: 'none',
-								letterSpacing: 'var(--tracking-wide)',
+								letterSpacing: 'var(--tracking-widest)',
+								textTransform: 'uppercase',
 								transition: 'color var(--duration-fast) var(--ease-out)',
 							}}
 							onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-text-primary)')}
@@ -94,9 +93,27 @@ export default function Nav() {
 					))}
 					<a
 						href="#booking-cta"
-						className="btn-primary"
+						style={{
+							display: 'inline-flex',
+							alignItems: 'center',
+							justifyContent: 'center',
+							padding: 'var(--space-2) var(--space-4)',
+							borderRadius: '2px',
+							backgroundColor: 'transparent',
+							border: '1.5px solid var(--color-accent-ember)',
+							color: 'var(--color-accent-ember)',
+							fontFamily: 'var(--font-body)',
+							fontWeight: 600,
+							fontSize: 'var(--text-xs)',
+							letterSpacing: 'var(--tracking-wider)',
+							textTransform: 'uppercase',
+							textDecoration: 'none',
+							transition: 'background-color var(--duration-fast) var(--ease-out)',
+						}}
+						onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(196,78,25,0.08)')}
+						onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
 					>
-						Free 15-Min Consult
+						Book a call
 					</a>
 				</nav>
 			</div>

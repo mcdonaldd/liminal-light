@@ -1,82 +1,126 @@
+import Image from 'next/image'
 import FoilArc from './FoilArc'
+import ArcTransition from './ArcTransition'
 
 export default function Hero() {
 	return (
 		<section
 			id="hero"
 			style={{
-				background: 'var(--gradient-warm-fade)',
-				paddingTop: 'var(--space-24)',
-				paddingBottom: 'var(--space-24)',
-				paddingInline: 'var(--space-6)',
 				position: 'relative',
+				minHeight: 'calc(100vh - var(--nav-height))',
+				display: 'flex',
+				alignItems: 'center',
 				overflow: 'hidden',
+				backgroundColor: 'var(--color-bg-primary)',
 			}}
 		>
-			{/* Ember glow background decoration */}
+			{/* Background image */}
+			<Image
+				src="/images/nathan/nathan-hero.jpg"
+				alt=""
+				fill
+				priority
+				sizes="100vw"
+				style={{ objectFit: 'cover', objectPosition: 'center 35%' }}
+			/>
+
+			{/* Gradient overlay — readable on left, transparent on right */}
 			<div
 				aria-hidden="true"
 				style={{
 					position: 'absolute',
 					inset: 0,
-					background: 'var(--gradient-ember-glow)',
-					pointerEvents: 'none',
+					background:
+						'linear-gradient(to right, rgba(234,212,168,0.94) 0%, rgba(234,212,168,0.80) 38%, rgba(234,212,168,0.30) 65%, rgba(234,212,168,0.00) 100%)',
 				}}
 			/>
 
+
+			{/* Dark arc — hero image curves into the dark section below */}
+			<ArcTransition variant="bottom" fill="#181510" offset={0.45} />
+
+			{/* Content */}
 			<div
 				style={{
-					maxWidth: 'var(--container-lg)',
-					margin: '0 auto',
 					position: 'relative',
 					zIndex: 1,
+					maxWidth: 'var(--container-xl)',
+					margin: '0 auto',
+					width: '100%',
+					paddingBlock: 'var(--space-32)',
+					paddingInline: 'var(--space-6)',
 				}}
 			>
-				{/* Eyebrow label */}
-				<p className="label-caps" style={{ marginBottom: 'var(--space-4)' }}>
-					[PLACEHOLDER — Eyebrow / tagline label]
-				</p>
+				{/* Eyebrow + Headline + FoilArc — all share the same container */}
+				<div style={{ maxWidth: '560px', marginBottom: 'var(--space-6)' }}>
+					<p
+						style={{
+							display: 'flex',
+							alignItems: 'center',
+							gap: 'var(--space-2)',
+							fontFamily: 'var(--font-body)',
+							fontWeight: 600,
+							fontSize: '13px',
+							letterSpacing: 'var(--tracking-widest)',
+							textTransform: 'uppercase',
+							color: 'var(--color-text-secondary)',
+							marginBottom: 'var(--space-6)',
+						}}
+					>
+						<span
+							aria-hidden="true"
+							style={{
+								display: 'inline-block',
+								width: 6,
+								height: 6,
+								borderRadius: '50%',
+								backgroundColor: 'var(--color-accent-magenta)',
+								flexShrink: 0,
+							}}
+						/>
+						Somatic Practitioner
+					</p>
 
-				{/* Hero headline with foil arc */}
-				<div style={{ marginBottom: 'var(--space-6)' }}>
 					<h1
 						style={{
 							fontFamily: 'var(--font-display)',
 							fontWeight: 400,
-							fontSize: 'clamp(var(--text-5xl), 8vw, var(--text-7xl))',
+							fontSize: 'clamp(var(--text-4xl), 5vw, var(--text-6xl))',
 							letterSpacing: 'var(--tracking-tight)',
 							lineHeight: 'var(--leading-tight)',
 							color: 'var(--color-text-primary)',
 							marginBottom: 'var(--space-3)',
 						}}
 					>
-						[PLACEHOLDER — Hero headline]
+						Grounded in the body.{' '}
+						<em style={{ color: 'var(--color-accent-teal)', fontStyle: 'italic' }}>Open</em> to what
+						wants to change.
 					</h1>
-					<FoilArc />
+
+					<FoilArc style={{ width: '100%', height: 16 }} />
 				</div>
 
-				{/* Subheadline */}
-				<p
-					style={{
-						fontFamily: 'var(--font-body)',
-						fontWeight: 300,
-						fontSize: 'var(--text-xl)',
-						lineHeight: 'var(--leading-relaxed)',
-						color: 'var(--color-text-secondary)',
-						maxWidth: '55ch',
-						marginBottom: 'var(--space-10)',
-					}}
-				>
-					[PLACEHOLDER — Hero subhead: 2–3 lines describing who Nathan serves and what transformation looks like]
-				</p>
+				{/* Body + CTA */}
+				<div style={{ maxWidth: '520px' }}>
+					<p
+						style={{
+							fontFamily: 'var(--font-body)',
+							fontWeight: 300,
+							fontSize: 'var(--text-lg)',
+							lineHeight: 'var(--leading-relaxed)',
+							color: 'var(--color-text-secondary)',
+							maxWidth: '50ch',
+							marginBottom: 'var(--space-10)',
+						}}
+					>
+						Reiki, vibrational sound therapy, and sacred ceremony for people standing at the
+						threshold of something new.
+					</p>
 
-				{/* CTAs */}
-				<div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-4)' }}>
-					<a href="#booking-cta" className="btn-primary">
-						Book a Free Consultation
-					</a>
-					<a href="#about" className="btn-secondary">
-						Learn More
+					{/* TODO: replace href with booking platform URL */}
+					<a href="#booking-placeholder" className="btn-primary">
+						Free 15-min consultation
 					</a>
 				</div>
 			</div>

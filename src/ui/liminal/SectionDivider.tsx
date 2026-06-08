@@ -12,28 +12,27 @@ export default function SectionDivider() {
     >
       <div
         style={{
-          width: 40,
+          width: 64,
           height: 1,
           backgroundColor: 'var(--color-accent-gold)',
-          opacity: 0.4,
+          opacity: 0.7,
         }}
       />
       <div
         style={{
-          width: 5,
-          height: 5,
+          width: 6,
+          height: 6,
           backgroundColor: 'var(--color-accent-gold)',
           transform: 'rotate(45deg)',
           flexShrink: 0,
-          opacity: 0.8,
         }}
       />
       <div
         style={{
-          width: 40,
+          width: 64,
           height: 1,
           backgroundColor: 'var(--color-accent-gold)',
-          opacity: 0.4,
+          opacity: 0.7,
         }}
       />
     </div>

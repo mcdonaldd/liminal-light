@@ -6,6 +6,7 @@ export default function FoilArc({ className, style }: { className?: string; styl
   return (
     <svg
       viewBox="0 0 280 16"
+      preserveAspectRatio="none"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
@@ -28,14 +29,14 @@ export default function FoilArc({ className, style }: { className?: string; styl
       `}</style>
       <defs>
         <linearGradient id="foil-holo-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#C2562A" />
-          <stop offset="35%" stopColor="#D4A24C" />
+          <stop offset="0%" stopColor="#C44E19" />
+          <stop offset="35%" stopColor="#D4940C" />
           <stop offset="65%" stopColor="#3FB6C9" />
           <stop offset="100%" stopColor="#FF2D87" />
         </linearGradient>
       </defs>
       <path
-        d="M 5 9 Q 140 19 275 9"
+        d="M 1 9 Q 140 19 279 9"
         stroke="url(#foil-holo-gradient)"
         strokeWidth="2"
         strokeLinecap="round"
