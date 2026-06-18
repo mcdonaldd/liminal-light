@@ -196,7 +196,7 @@ export default function OfferingsSection() {
 
               {/* CTA */}
               {/* TODO: replace href with booking platform URL */}
-              <a href="#booking-placeholder" className="btn-secondary" style={{ textAlign: 'center', justifyContent: 'center' }}>
+              <a href="#booking-placeholder" className="btn-secondary" style={{ textAlign: 'center', justifyContent: 'center', marginTop: 'auto' }}>
                 {offering.ctaLabel}
               </a>
             </article>
