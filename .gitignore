@@ -52,3 +52,5 @@ dist/
 # unlighthouse
 .unlighthouse/
 .env.local
+demo.tar.gz
+.vscode/

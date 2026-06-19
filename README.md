@@ -2,94 +2,78 @@
 
 Personal practice site for Nathan Ghabour — somatic healer and practitioner.
 
-**Stack:** Next.js 16 · Sanity CMS (SanityPress template) · Tailwind CSS v4 · TypeScript  
-**Deploy:** Vercel via GitHub ([mcdonaldd/liminal-light](https://github.com/mcdonaldd/liminal-light))
+**Stack:** Next.js 16 · Sanity CMS · Tailwind CSS v4 · TypeScript  
+**Deploy:** Vercel — [liminal-light.vercel.app](https://liminal-light.vercel.app)  
+**Repo:** [github.com/mcdonaldd/liminal-light](https://github.com/mcdonaldd/liminal-light)
 
 ---
 
-## Running locally
+## Getting started
+
+**Prerequisites:** [Bun](https://bun.sh) (`curl -fsSL https://bun.sh/install | bash`)
 
 ```bash
-npm install
-npm run dev       # http://localhost:3000
+bun install
 ```
 
-The dev server starts without Sanity credentials. All Liminal Light sections render from static components. Sanity-driven features (visual editing, blog, CMS content) activate only after you connect a project.
+You'll need a `.env.local` file with Sanity credentials before the CMS features work. See Nathan's onboarding doc or ask David.
+
+```bash
+bun run dev       # http://localhost:3000
+```
+
+Studio (Sanity CMS editor) runs at `http://localhost:3000/admin`.
 
 ---
 
-## Connecting Sanity
+## Commands
 
-1. Create a project at [sanity.io/manage](https://sanity.io/manage)
-2. Copy `.env.example` → `.env.local`
-3. Fill in:
-   ```
-   NEXT_PUBLIC_SANITY_PROJECT_ID="your_project_id"
-   NEXT_PUBLIC_SANITY_DATASET="production"
-   SANITY_API_READ_TOKEN="your_viewer_token"
-   NEXT_PUBLIC_BASE_URL="https://your-domain.com"
-   ```
-4. Run `npm run dev` — visit `http://localhost:3000/admin` to open the Sanity Studio
+```bash
+bun run dev          # Dev server
+bun run build        # Production build
+bun run typecheck    # TypeScript check
+bun run typegen      # Regenerate Sanity types (run after schema changes)
+```
 
 ---
 
-## Pages & sections
+## Architecture
 
-### `/` — Home
+Next.js App Router + Sanity CMS. Pages are composed of **modules** — schema-defined content blocks edited in Sanity Studio and rendered by `ModulesResolver`.
 
-| Section | Status | File |
-|---|---|---|
-| Nav | Built | `src/ui/liminal/Nav.tsx` |
-| Hero | Placeholder | `src/ui/liminal/Hero.tsx` |
-| About | Placeholder | `src/ui/liminal/About.tsx` |
-| Offerings (card grid) | Placeholder | `src/ui/liminal/OfferingsSection.tsx` |
-| Booking CTA | Placeholder | `src/ui/liminal/BookingCTA.tsx` |
-| Is This You (accordion) | **Copy final** | `src/ui/liminal/IsThisYou.tsx` |
-| Substack | Placeholder | `src/ui/liminal/SubstackSection.tsx` |
-| Footer | Built | `src/ui/liminal/LiminalFooter.tsx` |
+```
+src/
+  app/
+    (frontend)/     # Public site — catch-all [[...slug]] route
+    (studio)/       # Sanity Studio at /admin
+  sanity/           # Schema, queries, client config
+  ui/
+    modules/        # One component per module type
+    liminal/        # Site-specific components (nav, footer, etc.)
+  app.css           # Design tokens + global styles
+```
 
-### `/offerings` — Services
+### Adding a new module
 
-Full offerings list page. All offering cards are placeholder. File: `src/app/(frontend)/offerings/page.tsx`
-
----
-
-## Copy needed
-
-All placeholder slots are labelled `[PLACEHOLDER — ...]` in the source. Full copy doc:  
-→ **[Notion: Website Copy](https://www.notion.so/Website-Copy-375cfa81b05c81f5b605c133673336e1)**
-
-**Confirmed copy already wired in:**
-- Is This You — all three accordion items + "How We Walk Through It" anchor
-
-**Still needed (Nathan to provide):**
-- Hero headline + subhead + eyebrow
-- About section — copy + portrait photo
-- Offerings — names, descriptions, duration, format, price for each
-- Booking CTA — headline + 1–2 sentence body
-- Substack — heading + pitch
-- Footer tagline
-- All meta descriptions
-- Booking platform URL (goes in `BookingCTA.tsx` href + nav CTA)
-- Substack URL (goes in `SubstackSection.tsx` href)
-
----
-
-## Deploying to Vercel
-
-1. Push to GitHub: `git push origin main`
-2. In [Vercel](https://vercel.com/new), import repo `mcdonaldd/liminal-light`
-3. Set environment variables (same as `.env.local` values, minus `NEXT_PUBLIC_BASE_URL` — set that to your Vercel domain)
-4. Deploy
-
-For subsequent deploys: push to `main` → Vercel auto-deploys.
+Use `/new-module` in Claude Code — it handles all 5 required files automatically. See `CLAUDE.md` for the full module system docs.
 
 ---
 
 ## Design system
 
-All design tokens live in `src/app.css` as CSS custom properties and Tailwind `@theme` values. Never use hardcoded hex or px values in components — reference tokens via `var(--...)` or Tailwind classes.
+All tokens in `src/app.css`. Never use hardcoded hex or px values.
 
-Key tokens: `--color-accent-ember` (primary CTA), `--font-display` (Instrument Serif), `--font-body` (Manrope 300), `--nav-height` (64px).
+| Token | Value | Use |
+|---|---|---|
+| `--color-accent-ember` | Orange | Primary CTAs |
+| `--font-display` | Instrument Serif | Headings |
+| `--font-body` | Manrope 300 | Body text |
+| `--nav-height` | 64px | Layout spacing |
 
-See full spec in the project brief.
+---
+
+## Deploying
+
+Push to `main` → Vercel auto-deploys.
+
+To add env vars to Vercel: Project Settings → Environment Variables. Use the same values as `.env.local`, with `NEXT_PUBLIC_BASE_URL` set to the production domain.
