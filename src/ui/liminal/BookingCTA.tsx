@@ -1,4 +1,5 @@
 import ArcTransition from './ArcTransition'
+import FoilArc from './FoilArc'
 
 export default function BookingCTA() {
   return (
@@ -51,13 +52,15 @@ export default function BookingCTA() {
               fontSize: 'clamp(var(--text-3xl), 4vw, var(--text-5xl))',
               lineHeight: 'var(--leading-tight)',
               color: 'var(--color-text-on-dark)',
-              marginBottom: 'var(--space-6)',
+              marginBottom: 'var(--space-4)',
             }}
           >
             Not sure where to start?
             <br />
             Start with a conversation.
           </h2>
+
+          <FoilArc style={{ width: '100%', height: 10, marginBottom: 'var(--space-6)', display: 'block' }} />
 
           <p
             style={{

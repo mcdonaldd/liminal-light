@@ -12,6 +12,7 @@ const navLinks = [
 
 export default function Nav() {
 	const [scrolled, setScrolled] = useState(false)
+	const [menuOpen, setMenuOpen] = useState(false)
 
 	useEffect(() => {
 		const onScroll = () => setScrolled(window.scrollY > 8)
@@ -19,29 +20,37 @@ export default function Nav() {
 		return () => window.removeEventListener('scroll', onScroll)
 	}, [])
 
+	useEffect(() => {
+		const onResize = () => { if (window.innerWidth >= 768) setMenuOpen(false) }
+		window.addEventListener('resize', onResize)
+		return () => window.removeEventListener('resize', onResize)
+	}, [])
+
+	const bg = scrolled || menuOpen ? 'rgba(234,212,168,0.95)' : 'var(--color-bg-primary)'
+	const blur = scrolled || menuOpen ? 'blur(12px)' : 'none'
+
 	return (
 		<header
 			style={{
 				position: 'sticky',
 				top: 0,
-				height: 'var(--nav-height)',
 				zIndex: 'var(--z-sticky)',
-				backgroundColor: scrolled ? 'rgba(234,212,168,0.88)' : 'var(--color-bg-primary)',
-				backdropFilter: scrolled ? 'blur(12px)' : 'none',
-				WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
-				transition: 'background-color var(--duration-slow) var(--ease-out), backdrop-filter var(--duration-slow) var(--ease-out)',
+				backgroundColor: bg,
+				backdropFilter: blur,
+				WebkitBackdropFilter: blur,
+				transition: 'background-color var(--duration-slow) var(--ease-out)',
 			}}
 		>
+			{/* Bar */}
 			<div
 				style={{
 					maxWidth: 'var(--container-xl)',
 					margin: '0 auto',
-					height: '100%',
+					height: 'var(--nav-height)',
 					padding: '0 var(--space-6)',
 					display: 'flex',
 					alignItems: 'center',
 					justifyContent: 'space-between',
-					gap: 'var(--space-8)',
 				}}
 			>
 				{/* Brand */}
@@ -61,15 +70,16 @@ export default function Nav() {
 					}}
 				>
 					<span>Liminal Light</span>
-					<span className="hidden md:block">
-						<FoilArc style={{ width: 100, height: 6 }} />
+					<span className="hidden md:block" style={{ display: 'block', width: '100%' }}>
+						<FoilArc style={{ width: '100%', height: 6 }} />
 					</span>
 				</Link>
 
-				{/* Desktop nav */}
+				{/* Desktop nav — hidden below md */}
 				<nav
 					aria-label="Primary navigation"
-					style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-8)' }}
+					className="hidden md:flex"
+					style={{ alignItems: 'center', gap: 'var(--space-8)' }}
 				>
 					{navLinks.map((link) => (
 						<a
@@ -116,7 +126,106 @@ export default function Nav() {
 						Book a call
 					</a>
 				</nav>
+
+				{/* Mobile controls — hidden above md */}
+				<div className="flex md:hidden" style={{ alignItems: 'center', gap: 'var(--space-3)' }}>
+					<a
+						href="#booking-cta"
+						style={{
+							display: 'inline-flex',
+							alignItems: 'center',
+							justifyContent: 'center',
+							padding: 'var(--space-2) var(--space-3)',
+							borderRadius: '2px',
+							backgroundColor: 'var(--color-accent-ember)',
+							color: 'oklch(0.99 0.005 60)',
+							fontFamily: 'var(--font-body)',
+							fontWeight: 600,
+							fontSize: '10px',
+							letterSpacing: 'var(--tracking-wider)',
+							textTransform: 'uppercase',
+							textDecoration: 'none',
+						}}
+					>
+						Book a call
+					</a>
+					<button
+						onClick={() => setMenuOpen((o) => !o)}
+						aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+						aria-expanded={menuOpen}
+						style={{
+							background: 'none',
+							border: 'none',
+							cursor: 'pointer',
+							padding: '6px 4px',
+							display: 'flex',
+							flexDirection: 'column',
+							gap: '5px',
+						}}
+					>
+						<span style={{
+							display: 'block', width: 20, height: 1.5,
+							backgroundColor: 'var(--color-text-primary)', borderRadius: 1,
+							transition: 'transform 0.22s cubic-bezier(0.4,0,0.2,1), opacity 0.15s',
+							transform: menuOpen ? 'translateY(6.5px) rotate(45deg)' : 'none',
+						}} />
+						<span style={{
+							display: 'block', width: 20, height: 1.5,
+							backgroundColor: 'var(--color-text-primary)', borderRadius: 1,
+							transition: 'opacity 0.15s',
+							opacity: menuOpen ? 0 : 1,
+						}} />
+						<span style={{
+							display: 'block', width: 20, height: 1.5,
+							backgroundColor: 'var(--color-text-primary)', borderRadius: 1,
+							transition: 'transform 0.22s cubic-bezier(0.4,0,0.2,1), opacity 0.15s',
+							transform: menuOpen ? 'translateY(-6.5px) rotate(-45deg)' : 'none',
+						}} />
+					</button>
+				</div>
 			</div>
+
+			{/* Mobile drawer — overlaid, not in flow */}
+			{menuOpen && (
+				<nav
+					aria-label="Mobile navigation"
+					className="md:hidden"
+					style={{
+						position: 'absolute',
+						top: '100%',
+						left: 0,
+						right: 0,
+						borderTop: '0.5px solid rgba(90,60,30,0.12)',
+						padding: 'var(--space-6) var(--space-6) var(--space-8)',
+						display: 'flex',
+						flexDirection: 'column',
+						gap: 'var(--space-5)',
+						backgroundColor: 'rgba(234,212,168,0.97)',
+						backdropFilter: 'blur(12px)',
+						WebkitBackdropFilter: 'blur(12px)',
+						animation: 'drawerOpen 0.22s cubic-bezier(0.16,1,0.3,1) both',
+					}}
+				>
+					{navLinks.map((link) => (
+						<a
+							key={link.href}
+							href={link.href}
+							onClick={() => setMenuOpen(false)}
+							style={{
+								fontFamily: 'var(--font-body)',
+								fontWeight: 500,
+								fontSize: '12px',
+								letterSpacing: 'var(--tracking-widest)',
+								textTransform: 'uppercase',
+								color: 'var(--color-text-secondary)',
+								textDecoration: 'none',
+							}}
+						>
+							{link.label}
+						</a>
+					))}
+				</nav>
+			)}
 		</header>
 	)
 }

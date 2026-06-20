@@ -1,3 +1,5 @@
+import RevealOnScroll from './RevealOnScroll'
+
 const offerings = [
   {
     id: 1,
@@ -54,6 +56,7 @@ export default function OfferingsSection() {
     >
       <div style={{ maxWidth: 'var(--container-xl)', margin: '0 auto' }}>
         {/* Section header */}
+        <RevealOnScroll>
         <div style={{ marginBottom: 'var(--space-12)', maxWidth: '55ch' }}>
           <p
             style={{
@@ -80,6 +83,7 @@ export default function OfferingsSection() {
             The work meets you where you are.
           </h2>
         </div>
+        </RevealOnScroll>
 
         {/* Card grid */}
         <div
@@ -90,10 +94,12 @@ export default function OfferingsSection() {
             marginBottom: 'var(--space-10)',
           }}
         >
-          {offerings.map((offering) => (
+          {offerings.map((offering, i) => (
+            <RevealOnScroll key={offering.id} delay={i * 80} style={{ height: '100%' }}>
             <article
-              key={offering.id}
+              className="offering-card"
               style={{
+                height: '100%',
                 backgroundColor: 'var(--color-bg-surface)',
                 border: '1px solid var(--color-border)',
                 borderTop: `3px solid ${offering.topRuleColor}`,
@@ -200,6 +206,7 @@ export default function OfferingsSection() {
                 {offering.ctaLabel}
               </a>
             </article>
+            </RevealOnScroll>
           ))}
         </div>
 

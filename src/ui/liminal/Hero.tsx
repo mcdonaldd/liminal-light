@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import FoilArc from './FoilArc'
 import ArcTransition from './ArcTransition'
+import FoilArc from './FoilArc'
 
 export default function Hero() {
 	return (
@@ -25,9 +25,10 @@ export default function Hero() {
 				style={{ objectFit: 'cover', objectPosition: 'center 35%' }}
 			/>
 
-			{/* Gradient overlay — readable on left, transparent on right */}
+			{/* Desktop: left-to-right gradient */}
 			<div
 				aria-hidden="true"
+				className="hidden md:block"
 				style={{
 					position: 'absolute',
 					inset: 0,
@@ -35,10 +36,21 @@ export default function Hero() {
 						'linear-gradient(to right, rgba(234,212,168,0.94) 0%, rgba(234,212,168,0.80) 38%, rgba(234,212,168,0.30) 65%, rgba(234,212,168,0.00) 100%)',
 				}}
 			/>
+			{/* Mobile: top-to-bottom gradient covering full hero */}
+			<div
+				aria-hidden="true"
+				className="md:hidden"
+				style={{
+					position: 'absolute',
+					inset: 0,
+					background:
+						'linear-gradient(to bottom, rgba(234,212,168,0.92) 0%, rgba(234,212,168,0.86) 40%, rgba(234,212,168,0.78) 70%, rgba(234,212,168,0.68) 100%)',
+				}}
+			/>
 
 
-			{/* Dark arc — hero image curves into the dark section below */}
-			<ArcTransition variant="bottom" fill="#181510" offset={0.45} />
+			{/* Organic arc transition into NarrativeBridge — warm sand rises from below */}
+			<ArcTransition variant="bottom" fill="#F3E8C8" offset={0.42} />
 
 			{/* Content */}
 			<div
@@ -66,6 +78,8 @@ export default function Hero() {
 							textTransform: 'uppercase',
 							color: 'var(--color-text-secondary)',
 							marginBottom: 'var(--space-6)',
+							animation: 'heroFadeUp 0.6s cubic-bezier(0.16,1,0.3,1) both',
+							animationDelay: '0ms',
 						}}
 					>
 						<span
@@ -91,6 +105,8 @@ export default function Hero() {
 							lineHeight: 'var(--leading-tight)',
 							color: 'var(--color-text-primary)',
 							marginBottom: 'var(--space-3)',
+							animation: 'heroFadeUp 0.7s cubic-bezier(0.16,1,0.3,1) both',
+							animationDelay: '80ms',
 						}}
 					>
 						Grounded in the body.{' '}
@@ -98,7 +114,7 @@ export default function Hero() {
 						wants to change.
 					</h1>
 
-					<FoilArc style={{ width: '100%', height: 16 }} />
+					<FoilArc style={{ width: '100%', height: 32 }} drawIn drawDelay={220} />
 				</div>
 
 				{/* Body + CTA */}
@@ -112,6 +128,8 @@ export default function Hero() {
 							color: 'var(--color-text-secondary)',
 							maxWidth: '50ch',
 							marginBottom: 'var(--space-10)',
+							animation: 'heroFadeUp 0.7s cubic-bezier(0.16,1,0.3,1) both',
+							animationDelay: '320ms',
 						}}
 					>
 						Reiki, vibrational sound therapy, and sacred ceremony for people standing at the
@@ -119,7 +137,7 @@ export default function Hero() {
 					</p>
 
 					{/* TODO: replace href with booking platform URL */}
-					<a href="#booking-placeholder" className="btn-primary">
+					<a href="#booking-placeholder" className="btn-primary" style={{ animation: 'heroFadeUp 0.7s cubic-bezier(0.16,1,0.3,1) both', animationDelay: '420ms' }}>
 						Free 15-min consultation
 					</a>
 				</div>

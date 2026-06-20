@@ -19,6 +19,7 @@ import BookingCTA from '@/ui/liminal/BookingCTA'
 import Hero from '@/ui/liminal/Hero'
 import IsThisYou from '@/ui/liminal/IsThisYou'
 import LiminalFooter from '@/ui/liminal/LiminalFooter'
+import NarrativeBridge from '@/ui/liminal/NarrativeBridge'
 import OfferingsSection from '@/ui/liminal/OfferingsSection'
 import SubstackSection from '@/ui/liminal/SubstackSection'
 
@@ -40,6 +41,7 @@ export default async function Page({ params }: Props) {
 			return (
 				<>
 					<Hero />
+					<NarrativeBridge />
 					<IsThisYou />
 					<OfferingsSection />
 					<About />
@@ -53,9 +55,26 @@ export default async function Page({ params }: Props) {
 	}
 
 	const page = await getPage(slug)
-	if (!page) notFound()
 
-	return <ModulesResolver page={page} />
+	if (!page) {
+		if (isRoot) {
+			return (
+				<>
+					<Hero />
+					<NarrativeBridge />
+					<IsThisYou />
+					<OfferingsSection />
+					<About />
+					<BookingCTA />
+					<SubstackSection />
+					<LiminalFooter />
+				</>
+			)
+		}
+		notFound()
+	}
+
+	return <ModulesResolver page={page!} />
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

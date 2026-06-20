@@ -1,3 +1,5 @@
+import FoilArc from './FoilArc'
+
 export default function LiminalFooter() {
 	return (
 		<footer
@@ -12,8 +14,9 @@ export default function LiminalFooter() {
 					maxWidth: 'var(--container-xl)',
 					margin: '0 auto',
 					display: 'flex',
+					flexDirection: 'column',
 					alignItems: 'center',
-					justifyContent: 'center',
+					gap: 4,
 				}}
 			>
 				<span
@@ -26,6 +29,7 @@ export default function LiminalFooter() {
 				>
 					Nathan Ghabour
 				</span>
+				<FoilArc style={{ width: 140, height: 6 }} />
 			</div>
 		</footer>
 	)

@@ -104,33 +104,43 @@ function AccordionItem({
         </svg>
       </button>
 
-      {isOpen && (
-        <div style={{ paddingTop: 'var(--space-6)' }}>
-          <h3
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontWeight: 600,
-              fontSize: 'var(--text-base)',
-              color: accent,
-              marginBottom: 'var(--space-3)',
-              letterSpacing: 'var(--tracking-wide)',
-            }}
-          >
-            {item.header}
-          </h3>
-
-          <p
-            style={{
-              fontWeight: 300,
-              lineHeight: 'var(--leading-relaxed)',
-              color: 'var(--color-text-on-dark-muted)',
-              maxWidth: '60ch',
-            }}
-          >
-            {item.body}
-          </p>
+      <div style={{
+        display: 'grid',
+        gridTemplateRows: isOpen ? '1fr' : '0fr',
+        transition: 'grid-template-rows 0.38s cubic-bezier(0.16,1,0.3,1)',
+      }}>
+        <div style={{ overflow: 'hidden' }}>
+          <div style={{
+            paddingTop: 'var(--space-6)',
+            opacity: isOpen ? 1 : 0,
+            transform: isOpen ? 'translateY(0)' : 'translateY(6px)',
+            transition: 'opacity 0.3s ease-out, transform 0.3s ease-out',
+          }}>
+            <h3
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontWeight: 600,
+                fontSize: 'var(--text-base)',
+                color: accent,
+                marginBottom: 'var(--space-3)',
+                letterSpacing: 'var(--tracking-wide)',
+              }}
+            >
+              {item.header}
+            </h3>
+            <p
+              style={{
+                fontWeight: 300,
+                lineHeight: 'var(--leading-relaxed)',
+                color: 'var(--color-text-on-dark-muted)',
+                maxWidth: '60ch',
+              }}
+            >
+              {item.body}
+            </p>
+          </div>
         </div>
-      )}
+      </div>
     </div>
   )
 }
