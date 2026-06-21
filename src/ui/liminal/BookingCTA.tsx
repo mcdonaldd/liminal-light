@@ -1,7 +1,7 @@
 import ArcTransition from './ArcTransition'
 import FoilArc from './FoilArc'
 
-export default function BookingCTA() {
+export default function BookingCTA({ noTopArc = false }: { noTopArc?: boolean }) {
   return (
     <section
       id="booking-cta"
@@ -14,8 +14,9 @@ export default function BookingCTA() {
         paddingInline: 'var(--space-6)',
       }}
     >
-      {/* Arc out to Substack */}
-      <ArcTransition variant="bottom" fill="#EAD4A8" offset={0.38} />
+      {!noTopArc && <ArcTransition variant="top" fill="var(--color-bg-primary)" offset={0.55} depth={0.9} />}
+      {/* Arc out to Substack — medium upward sweep, peak right */}
+      <ArcTransition variant="bottom" fill="var(--color-bg-primary)" offset={0.68} depth={1.1} />
 
       <div
         style={{

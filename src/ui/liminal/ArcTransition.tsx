@@ -4,35 +4,36 @@ import type { CSSProperties } from 'react'
 
 interface ArcTransitionProps {
 	/**
-	 * top    — filled arc at top of dark section (light color dips in from above)
-	 * bottom — filled arc at bottom of dark section (light color rises from below)
+	 * top    — filled arc at top of section (previous section's color dips in from above)
+	 * bottom — filled arc at bottom of section (next section's color rises from below)
 	 * stroke — foil gradient line only, no fill; renders inline for use between same-color sections
 	 */
 	variant: 'top' | 'bottom' | 'stroke'
-	/** Background color of the adjacent light section (not needed for stroke variant) */
+	/** Background color of the adjacent section */
 	fill?: string
-	/** Horizontal position of the arc peak, 0–1. Default 0.5 (centered). Shift for organic asymmetry. */
+	/** Horizontal position of the arc peak, 0–1. Default 0.5 (centered). */
 	offset?: number
+	/** Arc depth multiplier. 1.0 = default. Lower = shallower, higher = more pronounced. */
+	depth?: number
 	style?: CSSProperties
 }
 
-export default function ArcTransition({ variant, fill, offset = 0.5, style }: ArcTransitionProps) {
+export default function ArcTransition({ variant, fill, offset = 0.5, depth = 1.0, style }: ArcTransitionProps) {
 	const peak = Math.round(offset * 1440)
 	const gradientId = `arc-gradient-${variant}-${Math.round(offset * 100)}`
+
+	// Single quadratic bezier — one clean arc, apex at `peak`, depth controls how far it bows
+	const bottomCtrl = Math.round(64 - depth * 48)  // < 64 bows up into image
+	const topCtrl    = Math.round(16 + depth * 48)  // > 16 sags down into section
 
 	let fillPath = ''
 	let strokePath = ''
 
 	if (variant === 'top') {
-		// Light color fills from top, dips down toward peak, dark emerges at sides
-		fillPath   = `M0,0 L1440,0 L1440,16 Q${peak},64 0,16 Z`
-		strokePath = `M0,16 Q${peak},64 1440,16`
+		fillPath   = `M0,0 L1440,0 L1440,16 Q${peak},${topCtrl} 0,16 Z`
 	} else if (variant === 'bottom') {
-		// Light color rises from bottom, peaks at offset, dark recedes at sides
-		fillPath   = `M0,64 Q${peak},16 1440,64 L1440,80 L0,80 Z`
-		strokePath = `M0,64 Q${peak},16 1440,64`
+		fillPath   = `M0,64 Q${peak},${bottomCtrl} 1440,64 L1440,80 L0,80 Z`
 	} else {
-		// stroke-only: gentle arc line across the section boundary
 		strokePath = `M0,40 Q${peak},16 1440,40`
 	}
 

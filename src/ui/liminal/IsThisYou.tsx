@@ -39,20 +39,26 @@ function AccordionItem({
 }) {
   const { Glyph, accent } = item
 
+  const itemId = `isthisyou-panel-${item.header.replace(/\s+/g, '-').toLowerCase()}`
+  const btnId = `isthisyou-btn-${item.header.replace(/\s+/g, '-').toLowerCase()}`
+
   return (
     <div
       style={{
         borderTop: '1px solid rgba(244,235,220,0.10)',
         paddingBlock: 'var(--space-6)',
-        borderLeft: isOpen ? `2px solid ${accent}` : '2px solid transparent',
-        paddingLeft: isOpen ? 'var(--space-4)' : 0,
-        transition: 'border-color var(--duration-normal) var(--ease-out), padding-left var(--duration-normal) var(--ease-out)',
+        paddingInline: 'var(--space-3)',
+        backgroundColor: isOpen ? 'rgba(244,235,220,0.04)' : 'transparent',
+        borderRadius: 'var(--radius-sm)',
+        transition: 'background-color var(--duration-normal) var(--ease-out)',
       }}
     >
       <button
+        id={btnId}
         type="button"
         onClick={onToggle}
         aria-expanded={isOpen}
+        aria-controls={itemId}
         style={{
           width: '100%',
           background: 'none',
@@ -67,7 +73,9 @@ function AccordionItem({
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', flex: 1, minWidth: 0 }}>
-          <Glyph size={40} color={accent} />
+          <span style={{ flexShrink: 0, transition: 'transform 0.35s cubic-bezier(0.16,1,0.3,1), filter 0.35s cubic-bezier(0.16,1,0.3,1)', transform: isOpen ? 'scale(1.12)' : 'scale(1)', filter: isOpen ? `drop-shadow(0 0 6px ${accent})` : 'none', display: 'inline-flex' }}>
+            <Glyph size={40} color={accent} />
+          </span>
           <blockquote
             style={{
               fontFamily: 'var(--font-display)',
@@ -104,11 +112,15 @@ function AccordionItem({
         </svg>
       </button>
 
-      <div style={{
-        display: 'grid',
-        gridTemplateRows: isOpen ? '1fr' : '0fr',
-        transition: 'grid-template-rows 0.38s cubic-bezier(0.16,1,0.3,1)',
-      }}>
+      <div
+        id={itemId}
+        role="region"
+        aria-labelledby={btnId}
+        style={{
+          display: 'grid',
+          gridTemplateRows: isOpen ? '1fr' : '0fr',
+          transition: 'grid-template-rows 0.38s cubic-bezier(0.16,1,0.3,1)',
+        }}>
         <div style={{ overflow: 'hidden' }}>
           <div style={{
             paddingTop: 'var(--space-6)',
@@ -160,8 +172,8 @@ export default function IsThisYou() {
         paddingInline: 'var(--space-6)',
       }}
     >
-      {/* Arc out to Offerings */}
-      <ArcTransition variant="bottom" fill="#EAD4A8" offset={0.58} />
+      {/* Arc in from NarrativeBridge — cream of NarrativeBridge arcs into dark section */}
+      <ArcTransition variant="top" fill="var(--color-bg-surface)" offset={0.55} depth={1.0} />
 
       <div
         style={{
@@ -212,30 +224,6 @@ export default function IsThisYou() {
           ))}
         </div>
 
-        {/* Storytelling anchor */}
-        <div style={{ maxWidth: '65ch' }}>
-          <h3
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 400,
-              fontSize: 'var(--text-2xl)',
-              lineHeight: 'var(--leading-snug)',
-              color: 'var(--color-text-on-dark)',
-              marginBottom: 'var(--space-6)',
-            }}
-          >
-            How We Walk Through It
-          </h3>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-            <p style={{ fontSize: 'var(--text-lg)', fontWeight: 300, lineHeight: 'var(--leading-relaxed)', color: 'var(--color-text-on-dark-muted)' }}>
-              I don't look at a hyper-analytical mind or an overstimulated system as a problem to be fixed. Your mind is a brilliant, protective tool, but it can become an exhausting prison. Because I spent over a decade leading innovation in high-pressure corporate environments, I know the precise texture of that mental noise.
-            </p>
-            <p style={{ fontSize: 'var(--text-lg)', fontWeight: 300, lineHeight: 'var(--leading-relaxed)', color: 'var(--color-text-on-dark-muted)' }}>
-              My work isn't about overriding your intellect; it's about establishing a presence so steady and resonant that your mind finally feels permitted to hand the reins back to your body. Through grounded energy, sound resonance, and sacred ceremony, we clear a path forward so you can land back in yourself.
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   )

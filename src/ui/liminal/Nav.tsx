@@ -5,14 +5,21 @@ import Link from 'next/link'
 import FoilArc from './FoilArc'
 
 const navLinks = [
-	{ label: 'About', href: '#about' },
-	{ label: 'Offerings', href: '#offerings' },
-	{ label: 'Is This You?', href: '#is-this-you' },
+	{ label: 'About', href: '/about' },
+	{ label: 'Offerings', href: '/offerings' },
 ]
 
 export default function Nav() {
 	const [scrolled, setScrolled] = useState(false)
 	const [menuOpen, setMenuOpen] = useState(false)
+	const [mounted, setMounted] = useState(false)
+
+	useEffect(() => { setMounted(true) }, [])
+
+	useEffect(() => {
+		console.log('%cLiminal Light', 'font-size: 1.4em; color: #C44E19; font-family: "Instrument Serif", Georgia, serif; font-style: italic;')
+		console.log('Still in the analytical mind?\nNathan was too.\nliminallight.help')
+	}, [])
 
 	useEffect(() => {
 		const onScroll = () => setScrolled(window.scrollY > 8)
@@ -26,7 +33,7 @@ export default function Nav() {
 		return () => window.removeEventListener('resize', onResize)
 	}, [])
 
-	const bg = scrolled || menuOpen ? 'rgba(234,212,168,0.95)' : 'var(--color-bg-primary)'
+	const bg = scrolled || menuOpen ? 'var(--color-bg-primary-glass)' : 'var(--color-bg-primary)'
 	const blur = scrolled || menuOpen ? 'blur(12px)' : 'none'
 
 	return (
@@ -71,7 +78,7 @@ export default function Nav() {
 				>
 					<span>Liminal Light</span>
 					<span className="hidden md:block" style={{ display: 'block', width: '100%' }}>
-						<FoilArc style={{ width: '100%', height: 6 }} />
+						<FoilArc style={{ width: '100%', height: 6 }} drawIn={mounted} drawDelay={300} />
 					</span>
 				</Link>
 
@@ -82,7 +89,7 @@ export default function Nav() {
 					style={{ alignItems: 'center', gap: 'var(--space-8)' }}
 				>
 					{navLinks.map((link) => (
-						<a
+						<Link
 							key={link.href}
 							href={link.href}
 							style={{
@@ -99,7 +106,7 @@ export default function Nav() {
 							onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-text-secondary)')}
 						>
 							{link.label}
-						</a>
+						</Link>
 					))}
 					<a
 						href="#booking-cta"
@@ -109,9 +116,9 @@ export default function Nav() {
 							justifyContent: 'center',
 							padding: 'var(--space-2) var(--space-4)',
 							borderRadius: '2px',
-							backgroundColor: 'transparent',
-							border: '1.5px solid var(--color-accent-ember)',
-							color: 'var(--color-accent-ember)',
+							backgroundColor: 'var(--color-accent-ember)',
+							border: 'none',
+							color: 'oklch(0.99 0.005 60)',
 							fontFamily: 'var(--font-body)',
 							fontWeight: 600,
 							fontSize: 'var(--text-xs)',
@@ -120,8 +127,8 @@ export default function Nav() {
 							textDecoration: 'none',
 							transition: 'background-color var(--duration-fast) var(--ease-out)',
 						}}
-						onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(196,78,25,0.08)')}
-						onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+						onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--color-accent-ember-hover)')}
+						onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--color-accent-ember)')}
 					>
 						Book a call
 					</a>
@@ -200,14 +207,14 @@ export default function Nav() {
 						display: 'flex',
 						flexDirection: 'column',
 						gap: 'var(--space-5)',
-						backgroundColor: 'rgba(234,212,168,0.97)',
+						backgroundColor: 'var(--color-bg-primary-glass-heavy)',
 						backdropFilter: 'blur(12px)',
 						WebkitBackdropFilter: 'blur(12px)',
 						animation: 'drawerOpen 0.22s cubic-bezier(0.16,1,0.3,1) both',
 					}}
 				>
 					{navLinks.map((link) => (
-						<a
+						<Link
 							key={link.href}
 							href={link.href}
 							onClick={() => setMenuOpen(false)}
@@ -222,7 +229,7 @@ export default function Nav() {
 							}}
 						>
 							{link.label}
-						</a>
+						</Link>
 					))}
 				</nav>
 			)}

@@ -1,4 +1,3 @@
-import ArcTransition from './ArcTransition'
 import RevealOnScroll from './RevealOnScroll'
 
 export default function NarrativeBridge() {
@@ -103,7 +102,6 @@ export default function NarrativeBridge() {
 
       </div>
 
-      <ArcTransition variant="bottom" fill="#181510" offset={0.52} />
     </section>
   )
 }

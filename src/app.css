@@ -58,6 +58,10 @@
   --color-accent-lime: #E5FF3C;
   --color-accent-volt: #CAFF00;
 
+  --color-bg-primary-glass: rgba(234,212,168,0.95);
+  --color-bg-primary-glass-heavy: rgba(234,212,168,0.97);
+  --color-nav-border: rgba(90,60,30,0.12);
+
   --color-interactive: var(--color-accent-ember);
   --color-interactive-hover: var(--color-accent-ember-hover);
   --color-focus-ring: var(--color-accent-teal);
@@ -212,6 +216,35 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); filter: none; }
+  50% { transform: scale(1.08); filter: drop-shadow(0 0 6px currentColor); }
+}
+
+/* Skip to main content — keyboard a11y */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: var(--space-6);
+  z-index: 9999;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-bg-dark);
+  color: var(--color-text-on-dark);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: top 0.1s;
+}
+.skip-to-content:focus {
+  top: var(--space-3);
+}
+
 @media (hover: hover) {
   .offering-card {
     transition: transform 0.22s cubic-bezier(0.16,1,0.3,1);
@@ -219,6 +252,33 @@
   .offering-card:hover {
     transform: translateY(-3px);
   }
+
+  .liminal-icon-wrap:hover .liminal-icon {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 8px currentColor);
+  }
+  .liminal-icon-wrap:hover .liminal-icon-label {
+    opacity: 1;
+  }
+}
+
+.liminal-icon {
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), filter 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+.liminal-icon-label {
+  transition: opacity 0.25s ease-out;
+  opacity: 0.6;
+}
+
+.footer-link {
+  font-weight: 300;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+.footer-link:hover {
+  color: var(--color-text-primary);
 }
 
 /* ─── Component Utilities ────────────────────────────── */
@@ -245,6 +305,12 @@
   &:hover {
     background-color: var(--color-accent-ember-hover);
     box-shadow: 0 4px 20px rgba(196, 78, 25, 0.45), var(--shadow-sm);
+  }
+
+  &:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px rgba(196, 78, 25, 0.3);
+    transition-duration: 60ms;
   }
 }
 

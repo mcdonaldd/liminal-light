@@ -96,3 +96,14 @@ src/sanity/schemaTypes/
 ### Styling
 
 Tailwind 4 with PostCSS. Global styles in `src/app.css`. Use `cn()` for conditional class merging.
+
+### ArcTransition rules
+
+`ArcTransition` fill must always match the **neighboring section's background color** — the section it's visually carving into:
+
+- `variant="top"` → fill = background color of the section **above**
+- `variant="bottom"` → fill = background color of the section **below**
+
+**Never place an arc fill against a full-bleed photo.** Photos have no background color to match — any fill creates a floating color band over the image edge. Use a hard cut instead.
+
+When the same component (e.g. `BookingCTA`) appears after different section types on different pages, use a prop (e.g. `noTopArc`) to make it context-aware rather than hardcoding an arc that only works in one context.

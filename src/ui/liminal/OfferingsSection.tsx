@@ -1,8 +1,15 @@
+'use client'
+
+import { useState } from 'react'
+import { Energy, River, Ember } from './icons'
 import RevealOnScroll from './RevealOnScroll'
+
+
 
 const offerings = [
   {
     id: 1,
+    Glyph: Energy,
     topRuleColor: 'var(--color-accent-volt)',
     tagLabel: 'Energy',
     tagBg: 'var(--color-accent-volt)',
@@ -13,9 +20,11 @@ const offerings = [
     availability: 'Tuesdays & Thursdays',
     notice: null,
     ctaLabel: 'Book a session',
+    dark: false,
   },
   {
     id: 2,
+    Glyph: River,
     topRuleColor: 'var(--color-accent-teal)',
     tagLabel: 'Remote',
     tagBg: 'var(--color-accent-teal)',
@@ -26,9 +35,11 @@ const offerings = [
     availability: null,
     notice: null,
     ctaLabel: 'Book a session',
+    dark: false,
   },
   {
     id: 3,
+    Glyph: Ember,
     topRuleColor: 'var(--color-accent-magenta)',
     tagLabel: 'Ceremony',
     tagBg: 'var(--color-accent-magenta)',
@@ -39,10 +50,13 @@ const offerings = [
     availability: null,
     notice: 'A brief consultation is required prior to booking. This ceremony may not be suitable for individuals with certain cardiovascular conditions, high blood pressure, pregnancy, or those taking specific medications.',
     ctaLabel: 'Request consultation',
+    dark: false,
   },
 ]
 
 export default function OfferingsSection() {
+  const [openExpect, setOpenExpect] = useState<number | null>(null)
+
   return (
     <section
       id="offerings"
@@ -94,25 +108,29 @@ export default function OfferingsSection() {
             marginBottom: 'var(--space-10)',
           }}
         >
-          {offerings.map((offering, i) => (
+          {offerings.map((offering, i) => {
+            const { Glyph } = offering
+            return (
             <RevealOnScroll key={offering.id} delay={i * 80} style={{ height: '100%' }}>
             <article
               className="offering-card"
               style={{
                 height: '100%',
-                backgroundColor: 'var(--color-bg-surface)',
-                border: '1px solid var(--color-border)',
+                position: 'relative',
+                backgroundColor: offering.dark ? 'var(--color-bg-dark)' : 'var(--color-bg-surface)',
+                border: offering.dark ? '1px solid rgba(244,235,220,0.08)' : '1px solid var(--color-border)',
                 borderTop: `3px solid ${offering.topRuleColor}`,
                 borderRadius: 'var(--radius-lg)',
                 padding: 'var(--space-6)',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 'var(--space-4)',
-                boxShadow: 'var(--shadow-sm)',
+                boxShadow: offering.dark ? '0 8px 32px rgba(0,0,0,0.35)' : 'var(--shadow-sm)',
+                overflow: 'hidden',
               }}
             >
-              {/* Tag */}
-              <div>
+              {/* Tag + Glyph */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <span
                   style={{
                     display: 'inline-block',
@@ -129,6 +147,7 @@ export default function OfferingsSection() {
                 >
                   {offering.tagLabel}
                 </span>
+                <Glyph size={26} color={offering.dark ? 'var(--color-text-on-dark-muted)' : 'var(--color-text-primary)'} strokeWidth={1.2} />
               </div>
 
               {/* Title */}
@@ -138,35 +157,71 @@ export default function OfferingsSection() {
                   fontWeight: 400,
                   fontSize: 'var(--text-2xl)',
                   lineHeight: 'var(--leading-snug)',
-                  color: 'var(--color-text-primary)',
+                  color: offering.dark ? 'var(--color-text-on-dark)' : 'var(--color-text-primary)',
                 }}
               >
                 {offering.title}
               </h3>
 
               {/* Body */}
-              <p style={{ fontWeight: 300, lineHeight: 'var(--leading-relaxed)', color: 'var(--color-text-secondary)' }}>
+              <p style={{ fontWeight: 300, lineHeight: 'var(--leading-relaxed)', color: offering.dark ? 'var(--color-text-on-dark-muted)' : 'var(--color-text-secondary)' }}>
                 {offering.body}
               </p>
 
-              {/* What to expect */}
-              <div>
-                <p
+              {/* What to expect trigger + popover */}
+              <div style={{ position: 'relative' }}>
+                <button
+                  type="button"
+                  onClick={() => setOpenExpect(openExpect === offering.id ? null : offering.id)}
                   style={{
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    padding: 0,
                     fontFamily: 'var(--font-body)',
                     fontWeight: 600,
-                    fontSize: 'var(--text-xs)',
+                    fontSize: '10px',
                     letterSpacing: 'var(--tracking-wider)',
                     textTransform: 'uppercase',
-                    color: 'var(--color-text-secondary)',
-                    marginBottom: 'var(--space-1)',
+                    color: offering.dark ? 'var(--color-text-on-dark-muted)' : 'var(--color-text-secondary)',
+                    textDecoration: 'underline',
+                    textUnderlineOffset: '3px',
                   }}
                 >
                   What to expect
-                </p>
-                <p style={{ fontWeight: 300, fontSize: 'var(--text-sm)', lineHeight: 'var(--leading-relaxed)', color: 'var(--color-text-secondary)', flex: 1 }}>
-                  {offering.expect}
-                </p>
+                </button>
+
+                {openExpect === offering.id && (
+                  <>
+                    {/* Backdrop to catch outside clicks */}
+                    <div
+                      onClick={() => setOpenExpect(null)}
+                      style={{ position: 'fixed', inset: 0, zIndex: 10 }}
+                    />
+                    {/* Popover */}
+                    <div
+                      style={{
+                        position: 'absolute',
+                        bottom: 'calc(100% + 8px)',
+                        left: 0,
+                        right: 0,
+                        zIndex: 11,
+                        backgroundColor: 'var(--color-bg-dark)',
+                        borderRadius: 'var(--radius-md)',
+                        padding: 'var(--space-4)',
+                        boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
+                        animation: 'fadeIn 0.15s ease-out',
+                      }}
+                    >
+                      <p style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '10px', letterSpacing: 'var(--tracking-wider)', textTransform: 'uppercase', color: offering.topRuleColor, marginBottom: 'var(--space-2)' }}>
+                        What to expect
+                      </p>
+                      <p style={{ fontWeight: 300, fontSize: 'var(--text-sm)', lineHeight: 'var(--leading-relaxed)', color: 'var(--color-text-on-dark-muted)', margin: 0 }}>
+                        {offering.expect}
+                      </p>
+                    </div>
+                  </>
+                )}
               </div>
 
               {/* Availability */}
@@ -177,7 +232,7 @@ export default function OfferingsSection() {
                     fontWeight: 500,
                     fontSize: 'var(--text-xs)',
                     letterSpacing: 'var(--tracking-wide)',
-                    color: 'var(--color-text-secondary)',
+                    color: offering.dark ? 'var(--color-text-on-dark-muted)' : 'var(--color-text-secondary)',
                   }}
                 >
                   {offering.availability}
@@ -191,9 +246,9 @@ export default function OfferingsSection() {
                     fontWeight: 300,
                     fontSize: 'var(--text-xs)',
                     lineHeight: 'var(--leading-relaxed)',
-                    color: 'var(--color-text-secondary)',
-                    borderLeft: '2px solid var(--color-border)',
-                    paddingLeft: 'var(--space-3)',
+                    color: offering.dark ? 'var(--color-text-on-dark-muted)' : 'var(--color-text-secondary)',
+                    borderTop: `1px solid ${offering.dark ? 'rgba(244,235,220,0.12)' : 'var(--color-border)'}`,
+                    paddingTop: 'var(--space-3)',
                   }}
                 >
                   {offering.notice}
@@ -207,32 +262,11 @@ export default function OfferingsSection() {
               </a>
             </article>
             </RevealOnScroll>
-          ))}
+            )
+          })}
         </div>
 
-        {/* Free consultation callout */}
-        <p
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontWeight: 300,
-            fontSize: 'var(--text-sm)',
-            color: 'var(--color-text-secondary)',
-            textAlign: 'center',
-          }}
-        >
-          Not sure which offering is right for you?{' '}
-          <a
-            href="#booking-cta"
-            style={{
-              color: 'var(--color-text-primary)',
-              textDecoration: 'underline',
-              textUnderlineOffset: '3px',
-              fontWeight: 600,
-            }}
-          >
-            Start with the free 15-minute call.
-          </a>
-        </p>
+
       </div>
     </section>
   )

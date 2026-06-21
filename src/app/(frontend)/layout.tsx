@@ -31,9 +31,10 @@ export default async function RootLayout({
 		<html lang="en" className={`${instrumentSerif.variable} ${manrope.variable}`}>
 			<NuqsAdapter>
 				<body className="antialiased">
+					<a href="#main-content" className="skip-to-content">Skip to content</a>
 					<GrainOverlay />
 					<Nav />
-					<main>{children}</main>
+					<main id="main-content">{children}</main>
 					<VisualEditing />
 				</body>
 			</NuqsAdapter>

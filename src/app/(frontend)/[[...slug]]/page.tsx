@@ -17,10 +17,10 @@ import ModulesResolver from '@/ui/modules'
 import About from '@/ui/liminal/About'
 import BookingCTA from '@/ui/liminal/BookingCTA'
 import Hero from '@/ui/liminal/Hero'
+import HeroImage from '@/ui/liminal/HeroImage'
 import IsThisYou from '@/ui/liminal/IsThisYou'
 import LiminalFooter from '@/ui/liminal/LiminalFooter'
 import NarrativeBridge from '@/ui/liminal/NarrativeBridge'
-import OfferingsSection from '@/ui/liminal/OfferingsSection'
 import SubstackSection from '@/ui/liminal/SubstackSection'
 
 type Props = {
@@ -41,11 +41,11 @@ export default async function Page({ params }: Props) {
 			return (
 				<>
 					<Hero />
+					<HeroImage />
 					<NarrativeBridge />
 					<IsThisYou />
-					<OfferingsSection />
 					<About />
-					<BookingCTA />
+					<BookingCTA noTopArc />
 					<SubstackSection />
 					<LiminalFooter />
 				</>
@@ -61,11 +61,11 @@ export default async function Page({ params }: Props) {
 			return (
 				<>
 					<Hero />
+					<HeroImage />
 					<NarrativeBridge />
 					<IsThisYou />
-					<OfferingsSection />
 					<About />
-					<BookingCTA />
+					<BookingCTA noTopArc />
 					<SubstackSection />
 					<LiminalFooter />
 				</>
