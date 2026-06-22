@@ -80,10 +80,19 @@ export default function BookingCTA({ noTopArc = false }: { noTopArc?: boolean })
         {/* Button */}
         <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
           {/* TODO: replace href with booking platform URL */}
-          <a href="#booking-placeholder" className="btn-primary" style={{ fontSize: 'var(--text-base)', padding: 'var(--space-4) var(--space-10)' }}>
+          <a href="#booking-placeholder" className="btn-primary booking-cta-btn" style={{ fontSize: 'var(--text-base)', padding: 'var(--space-4) var(--space-10)' }}>
             Book free call
           </a>
         </div>
+        <style>{`
+          @media (max-width: 767px) {
+            .booking-cta-btn {
+              width: 100%;
+              text-align: center;
+              justify-content: center;
+            }
+          }
+        `}</style>
       </div>
     </section>
   )

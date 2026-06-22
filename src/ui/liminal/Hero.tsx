@@ -97,6 +97,7 @@ export default function Hero() {
 					}}
 				>
 					<div
+						className="hero-photo"
 						style={{
 							position: 'relative',
 							aspectRatio: '3 / 4',
@@ -135,6 +136,9 @@ export default function Hero() {
 				@media (max-width: 767px) {
 					.hero-grid {
 						grid-template-columns: 1fr !important;
+					}
+					.hero-photo {
+						aspect-ratio: 4 / 3 !important;
 					}
 				}
 			`}</style>

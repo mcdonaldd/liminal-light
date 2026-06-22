@@ -164,7 +164,7 @@ export default function Nav() {
 							background: 'none',
 							border: 'none',
 							cursor: 'pointer',
-							padding: '6px 4px',
+							padding: '10px 8px',
 							display: 'flex',
 							flexDirection: 'column',
 							gap: '5px',
