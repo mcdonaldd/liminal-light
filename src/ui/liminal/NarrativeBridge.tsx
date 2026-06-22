@@ -13,34 +13,21 @@ export default function NarrativeBridge() {
         paddingInline: 'var(--space-6)',
       }}
     >
-      <div style={{ maxWidth: '700px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '65ch', margin: '0 auto' }}>
 
         <RevealOnScroll>
           <p
             style={{
-              fontFamily: 'var(--font-body)',
-              fontWeight: 600,
-              fontSize: '13px',
-              letterSpacing: 'var(--tracking-wider)',
-              textTransform: 'uppercase',
-              color: 'var(--color-accent-teal)',
-              marginBottom: 'var(--space-4)',
+              fontFamily: 'var(--font-display)',
+              fontWeight: 400,
+              fontSize: 'clamp(var(--text-2xl), 3vw, var(--text-3xl))',
+              lineHeight: 'var(--leading-snug)',
+              color: 'var(--color-text-primary)',
+              marginBottom: 'var(--space-8)',
             }}
           >
-            In Nathan's words
+            You've probably been in your head for a long time.
           </p>
-          {/* Thin ember accent bar — a breath before the words begin */}
-          <div
-            aria-hidden="true"
-            style={{
-              width: 32,
-              height: 2,
-              backgroundColor: 'var(--color-accent-ember)',
-              borderRadius: 2,
-              opacity: 0.65,
-              marginBottom: 'var(--space-10)',
-            }}
-          />
         </RevealOnScroll>
 
         <RevealOnScroll delay={80}>
@@ -50,32 +37,14 @@ export default function NarrativeBridge() {
               fontWeight: 300,
               lineHeight: 'var(--leading-relaxed)',
               color: 'var(--color-text-secondary)',
-              marginBottom: 'var(--space-8)',
+              marginBottom: 'var(--space-6)',
             }}
           >
-            There is a specific kind of exhaustion that comes from navigating fast-paced, high-pressure systems. I know that world intimately because I spent over a decade leading AI and machine learning innovation at companies like Nike and Amazon, carrying the mental noise and the weight of holding everything together.
+            Not because something is wrong with you. Because you've been navigating things that required it. The pressure to perform, to manage, to hold it together. The quiet exhaustion that lives below the surface even when life looks fine from the outside.
           </p>
         </RevealOnScroll>
 
-        <RevealOnScroll delay={160}>
-          <blockquote
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 400,
-              fontSize: 'clamp(var(--text-xl), 2.5vw, var(--text-2xl))',
-              lineHeight: 1.5,
-              color: 'var(--color-text-primary)',
-              margin: '0 0 var(--space-8) 0',
-              fontStyle: 'normal',
-            }}
-          >
-            But that pressure is rarely just about work. It echoes in our families, our relationships, and the quiet patterns that keep us stuck. It manifests as a knot in the chest, a heaviness in the limbs, or the feeling of being an outsider in your own life.{' '}
-            <em style={{ color: 'var(--color-accent-teal)' }}>Underneath it all</em>{' '}
-            is often the quiet, unspoken weariness of always needing to have the answers, to fix, and to manage.
-          </blockquote>
-        </RevealOnScroll>
-
-        <RevealOnScroll delay={240}>
+        <RevealOnScroll delay={140}>
           <p
             style={{
               fontSize: 'var(--text-lg)',
@@ -85,23 +54,40 @@ export default function NarrativeBridge() {
               marginBottom: 'var(--space-6)',
             }}
           >
-            My path through those analytical spaces eventually required me to step back and look inward, returning to healing practices rooted in the body, energy, and ceremony.
+            That kind of weight doesn't resolve through more thinking. It needs somewhere to land.
           </p>
+        </RevealOnScroll>
+
+        <RevealOnScroll delay={200}>
           <p
             style={{
               fontSize: 'var(--text-lg)',
               fontWeight: 300,
               lineHeight: 'var(--leading-relaxed)',
               color: 'var(--color-text-secondary)',
+              marginBottom: 'var(--space-10)',
             }}
           >
-            Today, Liminal Light is a conduit for that return. Whether you are navigating a threshold in your career, carrying the fatigue of family dynamics, or simply looking for a safe space where you don't have to carry the weight alone, this is a soft, grounded place to land. Together, we quiet the noise, drop out of the mind, and{' '}
-            <em style={{ color: 'var(--color-accent-ember)' }}>gently clear a path forward.</em>
+            This work is a space for that. A place to stop managing and start listening. To drop out of the part of you that is always prepared, always solving, and let the body say what it knows. There is something underneath all that noise that hasn't been heard in a while. We go there together, slowly, at the pace that's right for you.
+          </p>
+        </RevealOnScroll>
+
+        <RevealOnScroll delay={260}>
+          <p
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 400,
+              fontStyle: 'italic',
+              fontSize: 'clamp(var(--text-xl), 2.5vw, var(--text-2xl))',
+              lineHeight: 'var(--leading-snug)',
+              color: 'var(--color-text-primary)',
+            }}
+          >
+            You don't have to arrive with answers. You just have to arrive.
           </p>
         </RevealOnScroll>
 
       </div>
-
     </section>
   )
 }
