@@ -80,7 +80,7 @@ export default function OfferingsSection() {
             style={{
               fontFamily: 'var(--font-body)',
               fontWeight: 600,
-              fontSize: '13px',
+              fontSize: 'var(--text-sm)',
               letterSpacing: 'var(--tracking-wider)',
               textTransform: 'uppercase',
               color: 'var(--color-accent-teal)',
@@ -213,7 +213,7 @@ export default function OfferingsSection() {
                         backgroundColor: 'var(--color-bg-dark)',
                         borderRadius: 'var(--radius-md)',
                         padding: 'var(--space-4)',
-                        boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
+                        boxShadow: 'var(--shadow-lg)',
                         animation: 'fadeIn 0.15s ease-out',
                       }}
                     >

@@ -20,7 +20,7 @@ export default function AboutBio() {
               style={{
                 fontFamily: 'var(--font-body)',
                 fontWeight: 600,
-                fontSize: '13px',
+                fontSize: 'var(--text-sm)',
                 letterSpacing: 'var(--tracking-wider)',
                 textTransform: 'uppercase',
                 color: 'var(--color-accent-magenta)',
@@ -113,7 +113,7 @@ export default function AboutBio() {
 
         <RevealOnScroll delay={60}>
           <div style={{ maxWidth: 'var(--container-md)', margin: '0 auto', paddingTop: 'var(--space-16)', paddingInline: 'var(--space-6)' }}>
-            <p style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '13px', letterSpacing: 'var(--tracking-wider)', textTransform: 'uppercase', color: 'var(--color-accent-teal)', marginBottom: 'var(--space-4)' }}>
+            <p style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 'var(--text-sm)', letterSpacing: 'var(--tracking-wider)', textTransform: 'uppercase', color: 'var(--color-accent-teal)', marginBottom: 'var(--space-4)' }}>
               The Practice
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>

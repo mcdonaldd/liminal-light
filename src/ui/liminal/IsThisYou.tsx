@@ -189,7 +189,7 @@ export default function IsThisYou() {
             style={{
               fontFamily: 'var(--font-body)',
               fontWeight: 600,
-              fontSize: '13px',
+              fontSize: 'var(--text-sm)',
               letterSpacing: 'var(--tracking-wider)',
               textTransform: 'uppercase',
               color: 'var(--color-accent-teal)',
