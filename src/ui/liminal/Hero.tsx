@@ -75,9 +75,10 @@ export default function Hero() {
 							threshold of something new.
 						</p>
 
-						{/* TODO: replace href with booking platform URL */}
 						<a
-							href="#booking-placeholder"
+							href="https://cal.com/liminallight/15min"
+							target="_blank"
+							rel="noopener noreferrer"
 							className="btn-primary"
 							style={{
 								animation: 'heroFadeUp 0.7s cubic-bezier(0.16,1,0.3,1) both',

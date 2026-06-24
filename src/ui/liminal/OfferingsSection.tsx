@@ -20,6 +20,7 @@ const offerings = [
     availability: 'Tuesdays & Thursdays',
     notice: null,
     ctaLabel: 'Book a session',
+    ctaHref: 'https://cal.com/liminallight/reiki-and-vibrational-sound',
     dark: false,
   },
   {
@@ -35,6 +36,7 @@ const offerings = [
     availability: null,
     notice: null,
     ctaLabel: 'Book a session',
+    ctaHref: 'https://cal.com/liminallight/15min',
     dark: false,
   },
   {
@@ -48,8 +50,10 @@ const offerings = [
     body: 'A prayerful, intentional ceremony utilizing a sacred Amazonian plant blend administered through the breath to bring clarity to a specific, pressing life question. Hapé acts as a direct spiritual catalyst — cutting through intense mental noise to reveal a clear, grounded answer to a pertinent question, while purging stagnant energy from the body.',
     expect: 'A quiet, reverent ritual centered on your specific question, the administration of the medicine, and space for deep integration.',
     availability: null,
-    notice: 'A brief consultation is required prior to booking. This ceremony may not be suitable for individuals with certain cardiovascular conditions, high blood pressure, pregnancy, or those taking specific medications.',
-    ctaLabel: 'Request consultation',
+    notice: null,
+    noticeJsx: true,
+    ctaLabel: 'Book a session',
+    ctaHref: 'https://cal.com/liminallight/hape-ceremony',
     dark: false,
   },
 ]
@@ -240,7 +244,7 @@ export default function OfferingsSection() {
               )}
 
               {/* Notice */}
-              {offering.notice && (
+              {(offering.notice || offering.noticeJsx) && (
                 <p
                   style={{
                     fontWeight: 300,
@@ -251,13 +255,14 @@ export default function OfferingsSection() {
                     paddingTop: 'var(--space-3)',
                   }}
                 >
-                  {offering.notice}
+                  {offering.noticeJsx ? (
+                    <><a href="https://cal.com/liminallight/15min" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent-ember)', textDecoration: 'underline', fontWeight: 500 }}>A brief consultation</a> is required prior to booking. This ceremony may not be suitable for individuals with certain cardiovascular conditions, high blood pressure, pregnancy, or those taking specific medications.</>
+                  ) : offering.notice}
                 </p>
               )}
 
               {/* CTA */}
-              {/* TODO: replace href with booking platform URL */}
-              <a href="#booking-placeholder" className="btn-secondary" style={{ textAlign: 'center', justifyContent: 'center', marginTop: 'auto' }}>
+              <a href={offering.ctaHref} target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ textAlign: 'center', justifyContent: 'center', marginTop: 'auto' }}>
                 {offering.ctaLabel}
               </a>
             </article>
