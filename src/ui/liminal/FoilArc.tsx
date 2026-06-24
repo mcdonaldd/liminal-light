@@ -33,15 +33,11 @@ export default function FoilArc({
       style={{
         width: 280,
         height: 32,
-        animation: `foil-shimmer 4s ${drawIn ? drawDelay + 700 : 0}ms ease-in-out infinite`,
+        animation: `foil-shimmer-sweep 5s ${drawIn ? drawDelay + 700 : 0}ms ease-in-out infinite`,
         ...style,
       }}
     >
       <style>{`
-        @keyframes foil-shimmer {
-          0%, 100% { opacity: 0.7; }
-          50% { opacity: 1; }
-        }
         @keyframes foil-draw {
           from { stroke-dashoffset: 320; }
           to { stroke-dashoffset: 0; }

@@ -1,7 +1,20 @@
+'use client'
+
 import Image from 'next/image'
+import { useEffect, useRef } from 'react'
 import FoilArc from './FoilArc'
 
 export default function Hero() {
+	const parallaxRef = useRef<HTMLDivElement>(null)
+
+	useEffect(() => {
+		const handleScroll = () => {
+			if (!parallaxRef.current) return
+			parallaxRef.current.style.transform = `translateY(${window.scrollY * 0.1}px)`
+		}
+		window.addEventListener('scroll', handleScroll, { passive: true })
+		return () => window.removeEventListener('scroll', handleScroll)
+	}, [])
 	return (
 		<section
 			id="hero"
@@ -107,14 +120,19 @@ export default function Hero() {
 							backgroundColor: 'var(--color-border)',
 						}}
 					>
-						<Image
-							src="/images/nathan/candid-a.jpg"
-							alt="Nathan Ghabour, somatic practitioner"
-							fill
-							priority
-							sizes="(max-width: 768px) 100vw, 50vw"
-							style={{ objectFit: 'cover', objectPosition: 'center top' }}
-						/>
+						<div
+							ref={parallaxRef}
+							style={{ position: 'absolute', inset: '-12% 0', willChange: 'transform' }}
+						>
+							<Image
+								src="/images/nathan/candid-a.jpg"
+								alt="Nathan Ghabour, somatic practitioner"
+								fill
+								priority
+								sizes="(max-width: 768px) 100vw, 50vw"
+								style={{ objectFit: 'cover', objectPosition: 'center top' }}
+							/>
+						</div>
 					</div>
 					<p
 						style={{

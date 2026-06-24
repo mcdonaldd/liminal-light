@@ -115,7 +115,7 @@ export default function OfferingsSection() {
           {offerings.map((offering, i) => {
             const { Glyph } = offering
             return (
-            <RevealOnScroll key={offering.id} delay={i * 80} style={{ height: '100%' }}>
+            <RevealOnScroll key={offering.id} delay={i * 130} style={{ height: '100%' }}>
             <article
               className="offering-card"
               style={{

@@ -45,7 +45,7 @@ export default function Nav() {
 				backgroundColor: bg,
 				backdropFilter: blur,
 				WebkitBackdropFilter: blur,
-				transition: 'background-color var(--duration-slow) var(--ease-out)',
+				transition: 'background-color var(--duration-slow) var(--ease-out), backdrop-filter var(--duration-slow) var(--ease-out)',
 			}}
 		>
 			{/* Bar */}
