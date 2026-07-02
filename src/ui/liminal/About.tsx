@@ -8,6 +8,7 @@ export default function About() {
       style={{
         position: 'relative',
         overflow: 'hidden',
+        marginTop: '-4px',
         backgroundColor: 'var(--color-bg-primary)',
         paddingTop: 0,
         paddingBottom: 0,

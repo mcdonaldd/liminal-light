@@ -166,7 +166,7 @@ export default function IsThisYou() {
       style={{
         position: 'relative',
         overflow: 'hidden',
-        marginTop: '-2px',
+        marginTop: '-4px',
         backgroundColor: 'var(--color-bg-dark)',
         paddingBlock: 'var(--space-24)',
         paddingInline: 'var(--space-6)',

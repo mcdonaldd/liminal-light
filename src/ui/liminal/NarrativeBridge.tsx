@@ -7,6 +7,7 @@ export default function NarrativeBridge() {
       style={{
         position: 'relative',
         overflow: 'hidden',
+        marginTop: '-4px',
         backgroundColor: 'var(--color-bg-surface)',
         paddingTop: 'var(--space-24)',
         paddingBottom: 'calc(var(--space-24) + 48px)',

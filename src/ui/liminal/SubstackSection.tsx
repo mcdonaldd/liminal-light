@@ -6,7 +6,7 @@ export default function SubstackSection() {
       id="substack"
       style={{
         position: 'relative',
-        marginTop: '-2px',
+        marginTop: '-4px',
         backgroundColor: 'var(--color-bg-primary)',
         paddingBlock: 'var(--space-24)',
         paddingInline: 'var(--space-6)',

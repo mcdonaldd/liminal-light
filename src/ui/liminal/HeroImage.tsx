@@ -7,6 +7,7 @@ export default function HeroImage() {
 			style={{
 				position: 'relative',
 				width: '100%',
+				marginTop: '-4px',
 				height: 'clamp(320px, 50vw, 600px)',
 				overflow: 'hidden',
 				backgroundColor: 'var(--color-bg-primary)',
