@@ -67,9 +67,8 @@ export default function SubstackSection() {
 
         {/* Button */}
         <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-          {/* TODO: replace href with Nathan's Substack URL */}
           <a
-            href="#substack-placeholder"
+            href="https://liminalight.substack.com/"
             target="_blank"
             rel="noopener noreferrer"
             style={{

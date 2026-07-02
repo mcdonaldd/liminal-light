@@ -90,9 +90,8 @@ export default function LiminalFooter() {
 					>
 						Writing
 					</p>
-					{/* TODO: replace href with Nathan's Substack URL */}
 					<a
-						href="#substack-placeholder"
+						href="https://liminalight.substack.com/"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="footer-link"
