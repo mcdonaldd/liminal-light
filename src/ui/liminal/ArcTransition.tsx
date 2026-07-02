@@ -29,10 +29,14 @@ export default function ArcTransition({ variant, fill, offset = 0.5, depth = 1.0
 	let fillPath = ''
 	let strokePath = ''
 
+	// Fill overshoots the SVG's own top/bottom edge by 2 units (clipped by the
+	// viewBox either way) so the shape's true boundary never sits exactly on
+	// the container edge — that coincidence is what causes a hairline
+	// anti-aliasing seam against whatever's behind the SVG.
 	if (variant === 'top') {
-		fillPath   = `M0,0 L1440,0 L1440,16 Q${peak},${topCtrl} 0,16 Z`
+		fillPath   = `M0,-2 L1440,-2 L1440,16 Q${peak},${topCtrl} 0,16 Z`
 	} else if (variant === 'bottom') {
-		fillPath   = `M0,64 Q${peak},${bottomCtrl} 1440,64 L1440,80 L0,80 Z`
+		fillPath   = `M0,64 Q${peak},${bottomCtrl} 1440,64 L1440,82 L0,82 Z`
 	} else {
 		strokePath = `M0,40 Q${peak},16 1440,40`
 	}

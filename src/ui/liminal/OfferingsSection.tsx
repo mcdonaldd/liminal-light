@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Energy, River, Ember } from './icons'
+import Link from 'next/link'
+import { Energy, River, Ember, Air } from './icons'
 import RevealOnScroll from './RevealOnScroll'
 
 
@@ -54,6 +55,22 @@ const offerings = [
     noticeJsx: true,
     ctaLabel: 'Book a session',
     ctaHref: 'https://cal.com/liminallight/hape-ceremony',
+    dark: false,
+  },
+  {
+    id: 4,
+    Glyph: Air,
+    topRuleColor: 'var(--color-accent-ember)',
+    tagLabel: 'Private',
+    tagBg: 'var(--color-accent-ember)',
+    tagColor: 'var(--color-text-on-dark)',
+    title: 'Private Sound Baths for Groups & Events',
+    body: 'The resonance of sound bowls, brought to your gathering — a corporate offsite in need of a circuit breaker, or a wedding, memorial, or full moon circle that calls for a held, ceremonial container.',
+    expect: 'A collaborative planning conversation about your intention, location, and logistics, followed by a facilitated sound bath tailored to your group and the occasion.',
+    availability: null,
+    notice: null,
+    ctaLabel: 'Learn more',
+    ctaHref: '/offerings/private-events',
     dark: false,
   },
 ]
@@ -262,9 +279,15 @@ export default function OfferingsSection() {
               )}
 
               {/* CTA */}
-              <a href={offering.ctaHref} target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ textAlign: 'center', justifyContent: 'center', marginTop: 'auto' }}>
-                {offering.ctaLabel}
-              </a>
+              {offering.ctaHref.startsWith('/') ? (
+                <Link href={offering.ctaHref} className="btn-secondary" style={{ textAlign: 'center', justifyContent: 'center', marginTop: 'auto' }}>
+                  {offering.ctaLabel}
+                </Link>
+              ) : (
+                <a href={offering.ctaHref} target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ textAlign: 'center', justifyContent: 'center', marginTop: 'auto' }}>
+                  {offering.ctaLabel}
+                </a>
+              )}
             </article>
             </RevealOnScroll>
             )

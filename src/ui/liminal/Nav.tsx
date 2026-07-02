@@ -109,7 +109,9 @@ export default function Nav() {
 						</Link>
 					))}
 					<a
-						href="#booking-cta"
+						href="https://cal.com/liminallight/15min"
+						target="_blank"
+						rel="noopener noreferrer"
 						style={{
 							display: 'inline-flex',
 							alignItems: 'center',
@@ -137,7 +139,9 @@ export default function Nav() {
 				{/* Mobile controls — hidden above md */}
 				<div className="flex md:hidden" style={{ alignItems: 'center', gap: 'var(--space-3)' }}>
 					<a
-						href="#booking-cta"
+						href="https://cal.com/liminallight/15min"
+						target="_blank"
+						rel="noopener noreferrer"
 						style={{
 							display: 'inline-flex',
 							alignItems: 'center',

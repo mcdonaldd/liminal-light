@@ -97,6 +97,10 @@ src/sanity/schemaTypes/
 
 Tailwind 4 with PostCSS. Global styles in `src/app.css`. Use `cn()` for conditional class merging.
 
+**Design tokens live in `src/app.css` and are documented in [DESIGN.md](DESIGN.md) — read that file for the full color, typography, and spacing scale before styling anything.**
+
+**Never write `var(--token-name)` without confirming that exact name exists in `src/app.css` first** (`grep -n "\-\-space-8:" src/app.css`, etc). A wrong or invented token name doesn't error — it silently computes to `0`/`normal`/the property's initial value, which looks like a subtle spacing bug rather than a typo. This has shipped to production twice already (`--space-5` and `--space-7` don't exist; using them zeroed out gaps that were supposed to visibly separate a form's fields and labels). The spacing scale specifically has gaps — it is not `--space-1` through `--space-32` in increments of 1; see DESIGN.md for the exact list.
+
 ### ArcTransition rules
 
 `ArcTransition` fill must always match the **neighboring section's background color** — the section it's visually carving into:

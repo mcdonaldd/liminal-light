@@ -21,18 +21,22 @@ export default function LiminalFooter() {
 				}}
 			>
 				{/* Brand */}
-				<div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-					<span
-						style={{
-							fontFamily: 'var(--font-display)',
-							fontWeight: 400,
-							fontSize: 'var(--text-lg)',
-							color: 'var(--color-text-primary)',
-						}}
-					>
-						Liminal Light
-					</span>
-					<FoilArc style={{ width: 120, height: 6 }} />
+				<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 'var(--space-2)' }}>
+					<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 2 }}>
+						<span
+							style={{
+								fontFamily: 'var(--font-display)',
+								fontWeight: 400,
+								fontSize: 'var(--text-lg)',
+								color: 'var(--color-text-primary)',
+							}}
+						>
+							Liminal Light
+						</span>
+						<span style={{ display: 'block', width: '100%' }}>
+							<FoilArc style={{ width: '100%', height: 6 }} />
+						</span>
+					</div>
 					<p
 						style={{
 							fontWeight: 300,
