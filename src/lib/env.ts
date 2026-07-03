@@ -4,6 +4,9 @@ export const dev =
 // Used when Site Settings' bookingUrl hasn't been set in Sanity yet.
 export const FALLBACK_BOOKING_URL = 'https://cal.com/liminallight/15min'
 
+// Used when Site Settings' substackUrl hasn't been set in Sanity yet.
+export const FALLBACK_SUBSTACK_URL = 'https://liminalight.substack.com'
+
 export const ROUTES = {
 	studio: 'admin',
 	blog: 'blog',

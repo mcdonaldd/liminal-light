@@ -1,6 +1,15 @@
-'use client'
+import Link from 'next/link'
+import { FALLBACK_SUBSTACK_URL } from '@/lib/env'
+import { getSubstackPosts } from '@/lib/substack'
+import { getSite } from '@/sanity/lib/queries'
+import SubstackPostCard from './SubstackPostCard'
 
-export default function SubstackSection() {
+export default async function SubstackSection() {
+  const site = await getSite()
+  const substackUrl = site?.substackUrl || FALLBACK_SUBSTACK_URL
+  const posts = await getSubstackPosts(substackUrl)
+  const featured = posts.slice(0, 3)
+
   return (
     <section
       id="substack"
@@ -12,93 +21,107 @@ export default function SubstackSection() {
         paddingInline: 'var(--space-6)',
       }}
     >
-      <div
-        style={{
-          maxWidth: 'var(--container-xl)',
-          margin: '0 auto',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
-          gap: 'var(--space-12)',
-          alignItems: 'center',
-        }}
-      >
-        {/* Text */}
-        <div>
-          <p
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontWeight: 600,
-              fontSize: 'var(--text-sm)',
-              letterSpacing: 'var(--tracking-wider)',
-              textTransform: 'uppercase',
-              color: 'var(--color-accent-gold)',
-              marginBottom: 'var(--space-4)',
-            }}
-          >
-            The Writing
-          </p>
+      <div style={{ maxWidth: 'var(--container-xl)', margin: '0 auto' }}>
+        {/* Header */}
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'flex-end',
+            gap: 'var(--space-6)',
+            marginBottom: 'var(--space-12)',
+          }}
+        >
+          <div style={{ maxWidth: '55ch' }}>
+            <p
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontWeight: 600,
+                fontSize: 'var(--text-sm)',
+                letterSpacing: 'var(--tracking-wider)',
+                textTransform: 'uppercase',
+                color: 'var(--color-accent-gold)',
+                marginBottom: 'var(--space-4)',
+              }}
+            >
+              The Writing
+            </p>
 
-          <h2
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 400,
-              fontSize: 'clamp(var(--text-3xl), 4vw, var(--text-4xl))',
-              lineHeight: 'var(--leading-snug)',
-              color: 'var(--color-text-primary)',
-              marginBottom: 'var(--space-4)',
-            }}
-          >
-            Where the thinking happens out loud.
-          </h2>
+            <Link href="/writing" style={{ textDecoration: 'none' }}>
+              <h2
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontWeight: 400,
+                  fontSize: 'clamp(var(--text-3xl), 4vw, var(--text-4xl))',
+                  lineHeight: 'var(--leading-snug)',
+                  color: 'var(--color-text-primary)',
+                  marginBottom: 'var(--space-4)',
+                }}
+              >
+                Where the thinking happens out loud.
+              </h2>
+            </Link>
 
-          <p
-            style={{
-              fontWeight: 300,
-              fontSize: 'var(--text-lg)',
-              lineHeight: 'var(--leading-relaxed)',
-              color: 'var(--color-text-secondary)',
-              maxWidth: '55ch',
-            }}
+            <p
+              style={{
+                fontWeight: 300,
+                fontSize: 'var(--text-lg)',
+                lineHeight: 'var(--leading-relaxed)',
+                color: 'var(--color-text-secondary)',
+              }}
+            >
+              Essays on healing, identity, systems, and what it means to live in a body while
+              working in tech. Published on Substack.
+            </p>
+          </div>
+
+          <Link
+            href="/writing"
+            className="btn-secondary"
+            style={{ flexShrink: 0 }}
           >
-            Essays on healing, identity, systems, and what it means to live in a body while working
-            in tech. Published on Substack.
-          </p>
+            View all writing →
+          </Link>
         </div>
 
-        {/* Button */}
-        <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+        {/* Posts */}
+        {featured.length > 0 ? (
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
+              gap: 'var(--space-6)',
+            }}
+          >
+            {featured.map((post) => (
+              <SubstackPostCard key={post.link} post={post} />
+            ))}
+          </div>
+        ) : (
           <a
-            href="https://liminalight.substack.com/"
+            href={substackUrl}
             target="_blank"
             rel="noopener noreferrer"
+            className="post-card"
             style={{
-              display: 'inline-flex',
+              display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: 'var(--space-3) var(--space-6)',
-              borderRadius: 'var(--radius-sm)',
-              backgroundColor: 'transparent',
-              border: '1.5px solid var(--color-accent-teal)',
-              color: 'var(--color-accent-teal)',
+              padding: 'var(--space-16) var(--space-6)',
+              backgroundColor: 'var(--color-bg-surface)',
+              border: '1px solid var(--color-border)',
+              borderRadius: 'var(--radius-lg)',
+              textDecoration: 'none',
               fontFamily: 'var(--font-body)',
               fontWeight: 600,
-              fontSize: 'var(--text-sm)',
-              letterSpacing: 'var(--tracking-wide)',
-              textDecoration: 'none',
-              transition: 'background-color var(--duration-fast) var(--ease-out)',
-            }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget
-              el.style.backgroundColor = 'rgba(63,182,201,0.08)'
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget
-              el.style.backgroundColor = 'transparent'
+              fontSize: 'var(--text-base)',
+              color: 'var(--color-accent-ember-hover)',
             }}
           >
-            Read on Substack →
+            Read Nathan's writing on Substack →
           </a>
-        </div>
+        )}
       </div>
     </section>
   )

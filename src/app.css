@@ -484,6 +484,17 @@ dialog.inquiry-modal[open]::backdrop {
     box-shadow: var(--shadow-md) !important;
   }
 
+  .post-card {
+    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1),
+                box-shadow 0.3s cubic-bezier(0.16,1,0.3,1),
+                border-color 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+  .post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md) !important;
+    border-color: var(--color-border-strong);
+  }
+
   .liminal-icon-wrap:hover .liminal-icon {
     transform: scale(1.1);
     filter: drop-shadow(0 0 8px currentColor);

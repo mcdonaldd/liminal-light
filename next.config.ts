@@ -9,7 +9,10 @@ const nextConfig: NextConfig = {
 
 	images: {
 		localPatterns: [{ pathname: '/api/og' }, { pathname: '/**' }],
-		remotePatterns: [{ protocol: 'https', hostname: 'cdn.sanity.io' }],
+		remotePatterns: [
+			{ protocol: 'https', hostname: 'cdn.sanity.io' },
+			{ protocol: 'https', hostname: 'substackcdn.com' },
+		],
 	},
 
 	async rewrites() {
