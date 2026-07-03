@@ -8,6 +8,7 @@ export default defineType({
 		{ name: 'branding', default: true },
 		{ name: 'navigation' },
 		{ name: 'info' },
+		{ name: 'links' },
 	],
 	fields: [
 		defineField({
@@ -64,6 +65,29 @@ export default defineType({
 				},
 			],
 			group: 'info',
+		}),
+		defineField({
+			name: 'bookingUrl',
+			title: 'Booking URL',
+			description: 'Where "Book a call" buttons across the site link to (e.g. your Cal.com link).',
+			type: 'url',
+			validation: (Rule) => Rule.uri({ scheme: ['http', 'https'] }),
+			group: 'links',
+		}),
+		defineField({
+			name: 'substackUrl',
+			title: 'Substack URL',
+			description: 'The base URL of your Substack publication (e.g. https://yourname.substack.com).',
+			type: 'url',
+			validation: (Rule) => Rule.uri({ scheme: ['http', 'https'] }),
+			group: 'links',
+		}),
+		defineField({
+			name: 'contactEmail',
+			title: 'Contact email',
+			type: 'string',
+			validation: (Rule) => Rule.email(),
+			group: 'links',
 		}),
 	],
 	preview: {

@@ -1,7 +1,12 @@
+import { FALLBACK_BOOKING_URL } from '@/lib/env'
+import { getSite } from '@/sanity/lib/queries'
 import ArcTransition from './ArcTransition'
 import FoilArc from './FoilArc'
 
-export default function BookingCTA({ noTopArc = false }: { noTopArc?: boolean }) {
+export default async function BookingCTA({ noTopArc = false }: { noTopArc?: boolean }) {
+  const site = await getSite()
+  const bookingUrl = site?.bookingUrl || FALLBACK_BOOKING_URL
+
   return (
     <section
       id="booking-cta"
@@ -79,7 +84,7 @@ export default function BookingCTA({ noTopArc = false }: { noTopArc?: boolean })
 
         {/* Button */}
         <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <a href="https://cal.com/liminallight/15min" target="_blank" rel="noopener noreferrer" className="btn-primary booking-cta-btn" style={{ fontSize: 'var(--text-base)', padding: 'var(--space-4) var(--space-10)' }}>
+          <a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="btn-primary booking-cta-btn" style={{ fontSize: 'var(--text-base)', padding: 'var(--space-4) var(--space-10)' }}>
             Book free call
           </a>
         </div>

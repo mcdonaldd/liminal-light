@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { FALLBACK_BOOKING_URL } from '@/lib/env'
 import FoilArc from './FoilArc'
 
 const navLinks = [
@@ -9,7 +10,8 @@ const navLinks = [
 	{ label: 'Offerings', href: '/offerings' },
 ]
 
-export default function Nav() {
+export default function Nav({ bookingUrl }: { bookingUrl?: string }) {
+	const resolvedBookingUrl = bookingUrl || FALLBACK_BOOKING_URL
 	const [scrolled, setScrolled] = useState(false)
 	const [menuOpen, setMenuOpen] = useState(false)
 	const [mounted, setMounted] = useState(false)
@@ -109,7 +111,7 @@ export default function Nav() {
 						</Link>
 					))}
 					<a
-						href="https://cal.com/liminallight/15min"
+						href={resolvedBookingUrl}
 						target="_blank"
 						rel="noopener noreferrer"
 						style={{
@@ -139,7 +141,7 @@ export default function Nav() {
 				{/* Mobile controls — hidden above md */}
 				<div className="flex md:hidden" style={{ alignItems: 'center', gap: 'var(--space-3)' }}>
 					<a
-						href="https://cal.com/liminallight/15min"
+						href={resolvedBookingUrl}
 						target="_blank"
 						rel="noopener noreferrer"
 						style={{
