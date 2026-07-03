@@ -156,9 +156,6 @@ export default function Hero() {
 					.hero-grid {
 						grid-template-columns: 1fr !important;
 					}
-					.hero-photo {
-						aspect-ratio: 4 / 3 !important;
-					}
 				}
 			`}</style>
 		</section>

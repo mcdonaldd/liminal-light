@@ -6,18 +6,18 @@ import ArcTransition from './ArcTransition'
 
 const accordionItems = [
   {
-    entryQuote: '"I feel like an outsider, even at home."',
-    header: 'Finding Where You Fit',
-    body: 'For those navigating systemic friction or carrying the quiet weight of feeling "different" within their families, relationships, or corporate spaces. We work to clear the energetic static and build a deep sense of internal safety. By dropping out of the analytical survival strategies that keep you permanently on guard, you can fully engage with others and occupy your life without dimming your light.',
-    Glyph: Belong,
-    accent: 'var(--color-accent-volt)',
-  },
-  {
     entryQuote: '"I\'m the one holding everything together."',
     header: 'Sustainable Giving',
     body: 'For the empaths, caretakers, and fellow healing practitioners who spend their lives stabilizing the systems around them while quietly running on empty. It is a unique burden to hold space for others while your own overstimulated nervous system is humming with low-grade anxiety. This is a dedicated container for the guides to become the guided, providing a safe, grounded place to drop the armor, receive deep restoration, and move from chronic exhaustion back into balance.',
     Glyph: Root,
     accent: 'var(--color-accent-teal)',
+  },
+  {
+    entryQuote: '"I feel like an outsider, even at home."',
+    header: 'Finding Where You Fit',
+    body: 'For those navigating systemic friction or carrying the quiet weight of feeling "different" within their families, relationships, or corporate spaces. We work to clear the energetic static and build a deep sense of internal safety. By dropping out of the analytical survival strategies that keep you permanently on guard, you can fully engage with others and occupy your life without dimming your light.',
+    Glyph: Belong,
+    accent: 'var(--color-accent-volt)',
   },
   {
     entryQuote: '"I want things to be better, but I\'m stuck."',

@@ -121,7 +121,7 @@ export default function InquiryModal({ open, onClose }: { open: boolean; onClose
 			onClick={handleBackdropClick}
 		>
 			<div className="inquiry-modal-panel">
-				<div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 'var(--space-4)', marginBottom: 'var(--space-8)' }}>
+				<div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 'var(--space-4)', marginBottom: 'var(--space-4)' }}>
 					<div>
 						<p
 							style={{
@@ -250,7 +250,7 @@ export default function InquiryModal({ open, onClose }: { open: boolean; onClose
 							label="Tell me about your gathering"
 							hint="What is the occasion, and what is your intention for the space?"
 							error={touched.message ? errors.message : undefined}
-							style={{ marginBottom: 'var(--space-12)' }}
+							style={{ marginBottom: 'var(--space-6)' }}
 						>
 							<textarea
 								name="message"

@@ -11,7 +11,7 @@ interface FormFieldProps {
 
 export default function FormField({ id, label, hint, error, style, children }: FormFieldProps) {
 	return (
-		<div style={{ marginBottom: 'var(--space-8)', ...style }}>
+		<div style={{ marginBottom: 'var(--space-4)', ...style }}>
 			<label htmlFor={id} className="field-label">{label}</label>
 			{children}
 			{hint && (

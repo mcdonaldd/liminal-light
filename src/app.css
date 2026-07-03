@@ -301,7 +301,7 @@ dialog.inquiry-modal[open]::backdrop {
   background-color: var(--color-bg-surface);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
-  padding: var(--space-8) var(--space-6);
+  padding: var(--space-6);
   max-height: min(84vh, 780px);
   overflow-y: auto;
 }
@@ -667,7 +667,7 @@ input[type='number'].field-input::-webkit-inner-spin-button {
   grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
   row-gap: var(--space-4);
   column-gap: var(--space-4);
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-4);
 }
 @media (min-width: 640px) {
   .date-location-grid {
