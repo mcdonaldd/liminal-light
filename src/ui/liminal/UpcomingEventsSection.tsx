@@ -6,6 +6,8 @@ export default async function UpcomingEventsSection() {
 	const { upcoming } = (await getEvents()) ?? { upcoming: [], past: [] }
 	const featured = (upcoming ?? []).slice(0, 3)
 
+	if (featured.length === 0) return null
+
 	return (
 		<section
 			id="events"
@@ -32,38 +34,17 @@ export default async function UpcomingEventsSection() {
 					Events
 				</p>
 
-				{/* Events */}
-				{featured.length > 0 ? (
-					<div
-						style={{
-							display: 'grid',
-							gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
-							gap: 'var(--space-6)',
-						}}
-					>
-						{featured.map((event) => (
-							<EventCard key={event._id} event={event} />
-						))}
-					</div>
-				) : (
-					<div
-						style={{
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'center',
-							padding: 'var(--space-16) var(--space-6)',
-							backgroundColor: 'var(--color-bg-surface)',
-							border: '1px solid var(--color-border)',
-							borderRadius: 'var(--radius-lg)',
-							fontWeight: 300,
-							fontSize: 'var(--text-base)',
-							color: 'var(--color-text-secondary)',
-							textAlign: 'center',
-						}}
-					>
-						No events currently scheduled — check back soon.
-					</div>
-				)}
+				<div
+					style={{
+						display: 'grid',
+						gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
+						gap: 'var(--space-6)',
+					}}
+				>
+					{featured.map((event) => (
+						<EventCard key={event._id} event={event} />
+					))}
+				</div>
 
 				<div style={{ marginTop: 'var(--space-6)' }}>
 					<Link
