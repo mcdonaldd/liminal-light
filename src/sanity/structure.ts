@@ -19,6 +19,9 @@ export default structureTool({
 				S.documentTypeListItem('blog.post').title('Posts'),
 				S.documentTypeListItem('blog.category').title('Categories'),
 
+				S.divider().title('Events'),
+				S.documentTypeListItem('event').title('Events'),
+
 				S.divider().title('Navigation'),
 				S.documentTypeListItem('navigation'),
 				S.documentTypeListItem('redirect').title('Redirects'),

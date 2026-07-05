@@ -15,8 +15,8 @@ export default function WritingGrid({ posts }: { posts: SubstackPost[] }) {
 		<div>
 			<div
 				style={{
-					display: 'grid',
-					gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
+					display: 'flex',
+					flexDirection: 'column',
 					gap: 'var(--space-6)',
 				}}
 			>

@@ -18,8 +18,7 @@ export default function SubstackPostCard({ post }: { post: SubstackPost }) {
 			className="post-card"
 			style={{
 				display: 'flex',
-				flexDirection: 'column',
-				height: '100%',
+				maxHeight: 220,
 				backgroundColor: 'var(--color-bg-surface)',
 				border: '1px solid var(--color-border)',
 				borderRadius: 'var(--radius-lg)',
@@ -29,18 +28,31 @@ export default function SubstackPostCard({ post }: { post: SubstackPost }) {
 			}}
 		>
 			{post.thumbnail && (
-				<div style={{ position: 'relative', aspectRatio: '16 / 9', backgroundColor: 'var(--color-border)' }}>
-					<Image
-						src={post.thumbnail}
-						alt=""
-						fill
-						sizes="(max-width: 768px) 100vw, 33vw"
-						style={{ objectFit: 'cover' }}
-					/>
+				<div
+					style={{
+						position: 'relative',
+						width: '38%',
+						minWidth: 120,
+						maxWidth: 220,
+						flexShrink: 0,
+						backgroundColor: 'var(--color-border)',
+					}}
+				>
+					<Image src={post.thumbnail} alt="" fill sizes="220px" style={{ objectFit: 'cover' }} />
 				</div>
 			)}
 
-			<div style={{ padding: 'var(--space-6)', display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', flex: 1 }}>
+			<div
+				style={{
+					padding: 'var(--space-4)',
+					display: 'flex',
+					flexDirection: 'column',
+					gap: 'var(--space-2)',
+					flex: 1,
+					minWidth: 0,
+					overflow: 'hidden',
+				}}
+			>
 				{date && (
 					<p
 						style={{
@@ -63,6 +75,9 @@ export default function SubstackPostCard({ post }: { post: SubstackPost }) {
 						fontSize: 'var(--text-xl)',
 						lineHeight: 'var(--leading-snug)',
 						color: 'var(--color-text-primary)',
+						overflow: 'hidden',
+						textOverflow: 'ellipsis',
+						whiteSpace: 'nowrap',
 					}}
 				>
 					{post.title}
@@ -76,6 +91,10 @@ export default function SubstackPostCard({ post }: { post: SubstackPost }) {
 							lineHeight: 'var(--leading-relaxed)',
 							color: 'var(--color-text-secondary)',
 							flex: 1,
+							display: '-webkit-box',
+							WebkitLineClamp: 2,
+							WebkitBoxOrient: 'vertical',
+							overflow: 'hidden',
 						}}
 					>
 						{post.excerpt}

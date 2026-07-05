@@ -3,9 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import FormField from './FormField'
 import DatePickerField, { formatDateDisplay } from './DatePickerField'
-
-// TODO: replace with Nathan's real inquiry inbox once provided.
-const INQUIRY_EMAIL = 'hello@liminallight.help'
+import { FALLBACK_INQUIRY_EMAIL } from '@/lib/env'
 
 interface FormValues {
 	name: string
@@ -27,7 +25,7 @@ const initialValues: FormValues = {
 
 type FieldErrors = Partial<Record<keyof FormValues, string>>
 
-function buildMailto(values: FormValues) {
+function buildMailto(values: FormValues, inquiryEmail: string) {
 	const subject = `Private event inquiry — ${values.name}`
 	const lines = [
 		`Name: ${values.name}`,
@@ -40,7 +38,7 @@ function buildMailto(values: FormValues) {
 		values.message,
 	].filter((line) => line !== null)
 
-	return `mailto:${INQUIRY_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`
+	return `mailto:${inquiryEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`
 }
 
 function validate(values: FormValues): FieldErrors {
@@ -55,12 +53,22 @@ function validate(values: FormValues): FieldErrors {
 	return errors
 }
 
-export default function InquiryModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+export default function InquiryModal({
+	open,
+	onClose,
+	contactEmail,
+}: {
+	open: boolean
+	onClose: () => void
+	contactEmail?: string
+}) {
+	const inquiryEmail = contactEmail || FALLBACK_INQUIRY_EMAIL
 	const dialogRef = useRef<HTMLDialogElement>(null)
 	const nameInputRef = useRef<HTMLInputElement>(null)
 	const [values, setValues] = useState<FormValues>(initialValues)
 	const [touched, setTouched] = useState<Partial<Record<keyof FormValues, boolean>>>({})
-	const [submitted, setSubmitted] = useState(false)
+	const [submitting, setSubmitting] = useState(false)
+	const [result, setResult] = useState<'sent' | 'fallback' | null>(null)
 	const [mailtoHref, setMailtoHref] = useState('')
 
 	const errors = validate(values)
@@ -83,7 +91,7 @@ export default function InquiryModal({ open, onClose }: { open: boolean; onClose
 			// Reset to a fresh form each time the modal is opened.
 			setValues(initialValues)
 			setTouched({})
-			setSubmitted(false)
+			setResult(null)
 			requestAnimationFrame(() => nameInputRef.current?.focus())
 		} else if (!open && dialog.open) {
 			dialog.close()
@@ -102,15 +110,28 @@ export default function InquiryModal({ open, onClose }: { open: boolean; onClose
 		setTouched((t) => ({ ...t, [field]: true }))
 	}
 
-	function handleSubmit(e: FormEvent) {
+	async function handleSubmit(e: FormEvent) {
 		e.preventDefault()
 		setTouched({ name: true, email: true, message: true })
 		if (Object.keys(errors).length > 0) return
 
-		const href = buildMailto(values)
-		setMailtoHref(href)
-		window.location.href = href
-		setSubmitted(true)
+		setSubmitting(true)
+		try {
+			const res = await fetch('/api/inquiry', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(values),
+			})
+			if (!res.ok) throw new Error('Inquiry request failed')
+			setResult('sent')
+		} catch {
+			const href = buildMailto(values, inquiryEmail)
+			setMailtoHref(href)
+			window.location.href = href
+			setResult('fallback')
+		} finally {
+			setSubmitting(false)
+		}
 	}
 
 	return (
@@ -161,17 +182,25 @@ export default function InquiryModal({ open, onClose }: { open: boolean; onClose
 					</button>
 				</div>
 
-				{submitted ? (
+				{result ? (
 					<div role="status">
-						<p style={{ fontWeight: 300, fontSize: 'var(--text-lg)', lineHeight: 'var(--leading-relaxed)', color: 'var(--color-text-primary)', marginBottom: 'var(--space-4)' }}>
-							Your email client should now be open with your message ready to send.
-						</p>
-						<p style={{ fontWeight: 300, fontSize: 'var(--text-sm)', lineHeight: 'var(--leading-relaxed)', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-6)' }}>
-							If nothing opened, reach out directly at{' '}
-							<a href={mailtoHref} style={{ color: 'var(--color-accent-ember)', fontWeight: 500 }}>
-								{INQUIRY_EMAIL}
-							</a>.
-						</p>
+						{result === 'sent' ? (
+							<p style={{ fontWeight: 300, fontSize: 'var(--text-lg)', lineHeight: 'var(--leading-relaxed)', color: 'var(--color-text-primary)', marginBottom: 'var(--space-6)' }}>
+								Thank you — your inquiry is on its way. I'll be in touch soon.
+							</p>
+						) : (
+							<>
+								<p style={{ fontWeight: 300, fontSize: 'var(--text-lg)', lineHeight: 'var(--leading-relaxed)', color: 'var(--color-text-primary)', marginBottom: 'var(--space-4)' }}>
+									Your email client should now be open with your message ready to send.
+								</p>
+								<p style={{ fontWeight: 300, fontSize: 'var(--text-sm)', lineHeight: 'var(--leading-relaxed)', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-6)' }}>
+									If nothing opened, reach out directly at{' '}
+									<a href={mailtoHref} style={{ color: 'var(--color-accent-ember)', fontWeight: 500 }}>
+										{inquiryEmail}
+									</a>.
+								</p>
+							</>
+						)}
 						<button type="button" onClick={onClose} className="btn-secondary">
 							Close
 						</button>
@@ -265,8 +294,8 @@ export default function InquiryModal({ open, onClose }: { open: boolean; onClose
 							/>
 						</FormField>
 
-						<button type="submit" className="btn-primary" style={{ width: '100%' }}>
-							Send inquiry
+						<button type="submit" className="btn-primary" style={{ width: '100%' }} disabled={submitting}>
+							{submitting ? 'Sending…' : 'Send inquiry'}
 						</button>
 					</form>
 				)}

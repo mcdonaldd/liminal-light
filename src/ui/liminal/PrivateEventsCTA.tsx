@@ -5,7 +5,7 @@ import ArcTransition from './ArcTransition'
 import RevealOnScroll from './RevealOnScroll'
 import InquiryModal from './InquiryModal'
 
-export default function PrivateEventsCTA() {
+export default function PrivateEventsCTA({ contactEmail }: { contactEmail?: string }) {
 	const [modalOpen, setModalOpen] = useState(false)
 
 	return (
@@ -64,7 +64,7 @@ export default function PrivateEventsCTA() {
 				</RevealOnScroll>
 			</div>
 
-			<InquiryModal open={modalOpen} onClose={() => setModalOpen(false)} />
+			<InquiryModal open={modalOpen} onClose={() => setModalOpen(false)} contactEmail={contactEmail} />
 		</section>
 	)
 }

@@ -8,6 +8,7 @@ import FoilArc from './FoilArc'
 const navLinks = [
 	{ label: 'About', href: '/about' },
 	{ label: 'Offerings', href: '/offerings' },
+	{ label: 'Events', href: '/events' },
 	{ label: 'Writing', href: '/writing' },
 ]
 

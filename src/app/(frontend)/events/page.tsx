@@ -1,23 +1,19 @@
 import type { Metadata } from 'next'
-import { FALLBACK_SUBSTACK_URL } from '@/lib/env'
-import { getSubstackPosts } from '@/lib/substack'
-import { getSite } from '@/sanity/lib/queries'
+import { getEvents } from '@/sanity/lib/queries'
 import BookingCTA from '@/ui/liminal/BookingCTA'
+import EventCard from '@/ui/liminal/EventCard'
 import LiminalFooter from '@/ui/liminal/LiminalFooter'
-import WritingGrid from '@/ui/liminal/WritingGrid'
 
 export const metadata: Metadata = {
-	title: 'Writing — Liminal Light',
+	title: 'Events — Liminal Light',
 	description:
-		'Essays on healing, identity, systems, and what it means to live in a body while working in tech, by Nathan Ghabour. Published on Substack.',
+		'Upcoming sound baths, ceremonies, and gatherings with Nathan Ghabour in Portland, Oregon.',
 }
 
 export const revalidate = 3600
 
-export default async function WritingPage() {
-	const site = await getSite()
-	const substackUrl = site?.substackUrl || FALLBACK_SUBSTACK_URL
-	const posts = (await getSubstackPosts(substackUrl)).slice(0, 20)
+export default async function EventsPage() {
+	const { upcoming, past } = (await getEvents()) ?? { upcoming: [], past: [] }
 
 	return (
 		<>
@@ -38,11 +34,11 @@ export default async function WritingPage() {
 								fontSize: 'var(--text-sm)',
 								letterSpacing: 'var(--tracking-wider)',
 								textTransform: 'uppercase',
-								color: 'var(--color-accent-teal)',
+								color: 'var(--color-accent-magenta)',
 								marginBottom: 'var(--space-4)',
 							}}
 						>
-							The Writing
+							Events
 						</p>
 
 						<h1
@@ -55,7 +51,7 @@ export default async function WritingPage() {
 								marginBottom: 'var(--space-4)',
 							}}
 						>
-							Where the thinking happens out loud.
+							Gather in person.
 						</h1>
 
 						<p
@@ -66,19 +62,25 @@ export default async function WritingPage() {
 								color: 'var(--color-text-secondary)',
 							}}
 						>
-							Essays on healing, identity, systems, and what it means to live in a body while
-							working in tech. Published on Substack.
+							Sound baths, ceremonies, and gatherings held in Portland, Oregon and beyond.
 						</p>
 					</div>
 
-					{posts.length > 0 ? (
-						<WritingGrid posts={posts} />
+					{upcoming && upcoming.length > 0 ? (
+						<div
+							style={{
+								display: 'grid',
+								gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
+								gap: 'var(--space-6)',
+								marginBottom: 'var(--space-16)',
+							}}
+						>
+							{upcoming.map((event) => (
+								<EventCard key={event._id} event={event} />
+							))}
+						</div>
 					) : (
-						<a
-							href={substackUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="post-card"
+						<div
 							style={{
 								display: 'flex',
 								alignItems: 'center',
@@ -87,15 +89,43 @@ export default async function WritingPage() {
 								backgroundColor: 'var(--color-bg-surface)',
 								border: '1px solid var(--color-border)',
 								borderRadius: 'var(--radius-lg)',
-								textDecoration: 'none',
-								fontFamily: 'var(--font-body)',
-								fontWeight: 600,
+								marginBottom: 'var(--space-16)',
+								fontWeight: 300,
 								fontSize: 'var(--text-base)',
-								color: 'var(--color-accent-ember-hover)',
+								color: 'var(--color-text-secondary)',
+								textAlign: 'center',
 							}}
 						>
-							Read Nathan's writing on Substack →
-						</a>
+							No events currently scheduled — check back soon.
+						</div>
+					)}
+
+					{past && past.length > 0 && (
+						<div>
+							<h2
+								style={{
+									fontFamily: 'var(--font-display)',
+									fontWeight: 400,
+									fontSize: 'var(--text-2xl)',
+									lineHeight: 'var(--leading-snug)',
+									color: 'var(--color-text-primary)',
+									marginBottom: 'var(--space-6)',
+								}}
+							>
+								Past events
+							</h2>
+							<div
+								style={{
+									display: 'grid',
+									gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
+									gap: 'var(--space-6)',
+								}}
+							>
+								{past.map((event) => (
+									<EventCard key={event._id} event={event} muted />
+								))}
+							</div>
+						</div>
 					)}
 				</div>
 			</section>

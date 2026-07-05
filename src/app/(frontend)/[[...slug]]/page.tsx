@@ -21,7 +21,7 @@ import HeroImage from '@/ui/liminal/HeroImage'
 import IsThisYou from '@/ui/liminal/IsThisYou'
 import LiminalFooter from '@/ui/liminal/LiminalFooter'
 import NarrativeBridge from '@/ui/liminal/NarrativeBridge'
-import SubstackSection from '@/ui/liminal/SubstackSection'
+import UpcomingEventsSection from '@/ui/liminal/UpcomingEventsSection'
 
 type Props = {
 	params: Promise<{ slug?: string[] }>
@@ -46,7 +46,7 @@ export default async function Page({ params }: Props) {
 					<IsThisYou />
 					<About />
 					<BookingCTA noTopArc />
-					<SubstackSection />
+					<UpcomingEventsSection />
 					<LiminalFooter />
 				</>
 			)
@@ -66,7 +66,7 @@ export default async function Page({ params }: Props) {
 					<IsThisYou />
 					<About />
 					<BookingCTA noTopArc />
-					<SubstackSection />
+					<UpcomingEventsSection />
 					<LiminalFooter />
 				</>
 			)

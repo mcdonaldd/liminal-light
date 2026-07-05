@@ -1,5 +1,9 @@
 import { groq } from 'next-sanity'
-import type { SITE_QUERY_RESULT } from '@/sanity/types'
+import type {
+	EVENTS_QUERY_RESULT,
+	NEXT_EVENT_QUERY_RESULT,
+	SITE_QUERY_RESULT,
+} from '@/sanity/types'
 import { sanityFetchLive } from './live'
 
 /* fragments */
@@ -50,6 +54,25 @@ const SITE_QUERY = groq`*[_type == 'site'][0]{
 	footer->{ ${NAVIGATION_QUERY} },
 	social->{ ${NAVIGATION_QUERY} },
 }`
+
+// @sanity-typegen-ignore
+const EVENT_FIELDS_QUERY = groq`
+	...,
+	image{ ..., asset-> }
+`
+
+const EVENTS_QUERY = groq`{
+	'upcoming': *[_type == 'event' && dateTime >= now()] | order(dateTime asc){ ${EVENT_FIELDS_QUERY} },
+	'past': *[_type == 'event' && dateTime < now()] | order(dateTime desc){ ${EVENT_FIELDS_QUERY} }
+}`
+
+// Kept array-shaped (sliced to one item) rather than using a [0] single-object
+// projection — that shape reliably came back null through sanityFetch's
+// live/stega wrapper in testing, even though the identical query returns data
+// when queried directly against the Sanity API.
+const NEXT_EVENT_QUERY = groq`
+	*[_type == 'event' && dateTime >= now()] | order(dateTime asc)[0...1]{ ${EVENT_FIELDS_QUERY} }
+`
 
 export const GLOBAL_MODULE_EXCLUDE_QUERY = groq`
 	select(
@@ -118,4 +141,17 @@ export async function getSite() {
 	return await sanityFetchLive<SITE_QUERY_RESULT>({
 		query: SITE_QUERY,
 	})
+}
+
+export async function getEvents() {
+	return await sanityFetchLive<EVENTS_QUERY_RESULT>({
+		query: EVENTS_QUERY,
+	})
+}
+
+export async function getNextEvent() {
+	const events = await sanityFetchLive<NEXT_EVENT_QUERY_RESULT>({
+		query: NEXT_EVENT_QUERY,
+	})
+	return events?.[0] ?? null
 }
