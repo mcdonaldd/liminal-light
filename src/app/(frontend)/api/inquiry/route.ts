@@ -3,8 +3,6 @@ import { Resend } from 'resend'
 import { FALLBACK_INQUIRY_EMAIL } from '@/lib/env'
 import { getSite } from '@/sanity/lib/queries'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 // Resend's shared sending address — no domain verification needed, stays on the free tier.
 const FROM_EMAIL = 'Liminal Light <onboarding@resend.dev>'
 
@@ -40,6 +38,10 @@ export async function POST(request: Request) {
 		return NextResponse.json({ error: 'Missing or invalid fields.' }, { status: 400 })
 	}
 
+	if (!process.env.RESEND_API_KEY) {
+		return NextResponse.json({ error: 'Email delivery is not configured.' }, { status: 500 })
+	}
+
 	const site = await getSite()
 	const to = site?.contactEmail || FALLBACK_INQUIRY_EMAIL
 
@@ -54,6 +56,7 @@ export async function POST(request: Request) {
 		body.message,
 	].filter((line): line is string => line !== null)
 
+	const resend = new Resend(process.env.RESEND_API_KEY)
 	const { error } = await resend.emails.send({
 		from: FROM_EMAIL,
 		to,
