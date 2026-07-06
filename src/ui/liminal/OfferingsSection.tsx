@@ -18,7 +18,7 @@ const offerings = [
     title: 'In-Person Reiki & Vibrational Sound Therapy',
     body: 'A hands-on energy session combined with the resonant frequencies of metal Himalayan singing bowls. Reiki restores balance to your energetic system, while sound waves affect the body at a cellular level to promote healing and encourage a deep meditative state.',
     expect: 'A deeply restful, immersive sound and energy session in a quiet, grounded space. Custom plant and nature essences may be co-created during our time together to support your integration at home.',
-    availability: 'Tuesdays & Thursdays',
+    availability: null,
     notice: null,
     ctaLabel: 'Book a session',
     ctaHref: 'https://cal.com/liminallight/reiki-and-vibrational-sound',

@@ -9,6 +9,7 @@ const FROM_EMAIL = 'Liminal Light <onboarding@resend.dev>'
 interface InquiryPayload {
 	name: string
 	email: string
+	phone?: string
 	eventDate?: string
 	location?: string
 	groupSize?: string
@@ -48,6 +49,7 @@ export async function POST(request: Request) {
 	const lines = [
 		`Name: ${body.name}`,
 		`Email: ${body.email}`,
+		body.phone ? `Phone: ${body.phone}` : null,
 		formatDate(body.eventDate) ? `Date: ${formatDate(body.eventDate)}` : null,
 		body.location ? `Location: ${body.location}` : null,
 		body.groupSize ? `Estimated group size: ${body.groupSize}` : null,

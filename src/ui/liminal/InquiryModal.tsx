@@ -8,6 +8,7 @@ import { FALLBACK_INQUIRY_EMAIL } from '@/lib/env'
 interface FormValues {
 	name: string
 	email: string
+	phone: string
 	eventDate: string
 	location: string
 	groupSize: string
@@ -17,6 +18,7 @@ interface FormValues {
 const initialValues: FormValues = {
 	name: '',
 	email: '',
+	phone: '',
 	eventDate: '',
 	location: '',
 	groupSize: '',
@@ -30,6 +32,7 @@ function buildMailto(values: FormValues, inquiryEmail: string) {
 	const lines = [
 		`Name: ${values.name}`,
 		`Email: ${values.email}`,
+		values.phone ? `Phone: ${values.phone}` : null,
 		values.eventDate ? `Date: ${formatDateDisplay(values.eventDate)}` : null,
 		values.location ? `Location: ${values.location}` : null,
 		values.groupSize ? `Estimated group size: ${values.groupSize}` : null,
@@ -41,6 +44,11 @@ function buildMailto(values: FormValues, inquiryEmail: string) {
 	return `mailto:${inquiryEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`
 }
 
+function isValidPhone(value: string) {
+	const digits = value.replace(/\D/g, '')
+	return /^[+]?[\d\s().-]+$/.test(value) && digits.length >= 7 && digits.length <= 15
+}
+
 function validate(values: FormValues): FieldErrors {
 	const errors: FieldErrors = {}
 	if (!values.name.trim()) errors.name = 'Please share your name.'
@@ -48,6 +56,12 @@ function validate(values: FormValues): FieldErrors {
 		errors.email = 'Please share an email so we can reach you.'
 	} else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
 		errors.email = 'That email doesn’t look quite right.'
+	}
+	if (values.phone.trim() && !isValidPhone(values.phone)) {
+		errors.phone = 'That phone number doesn’t look quite right.'
+	}
+	if (values.groupSize.trim() && !/^\d+$/.test(values.groupSize.trim())) {
+		errors.groupSize = 'Please enter a whole number.'
 	}
 	if (!values.message.trim()) errors.message = 'Tell us a little about the gathering.'
 	return errors
@@ -112,7 +126,7 @@ export default function InquiryModal({
 
 	async function handleSubmit(e: FormEvent) {
 		e.preventDefault()
-		setTouched({ name: true, email: true, message: true })
+		setTouched({ name: true, email: true, phone: true, groupSize: true, message: true })
 		if (Object.keys(errors).length > 0) return
 
 		setSubmitting(true)
@@ -145,6 +159,7 @@ export default function InquiryModal({
 				<div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 'var(--space-4)', marginBottom: 'var(--space-4)' }}>
 					<div>
 						<p
+							id="inquiry-modal-title"
 							style={{
 								fontFamily: 'var(--font-body)',
 								fontWeight: 600,
@@ -157,18 +172,19 @@ export default function InquiryModal({
 						>
 							Private event inquiry
 						</p>
-						<h2
-							id="inquiry-modal-title"
-							style={{
-								fontFamily: 'var(--font-display)',
-								fontWeight: 400,
-								fontSize: 'var(--text-2xl)',
-								lineHeight: 'var(--leading-snug)',
-								color: 'var(--color-text-primary)',
-							}}
-						>
-							Tell me about your gathering
-						</h2>
+						{!result && (
+							<h2
+								style={{
+									fontFamily: 'var(--font-display)',
+									fontWeight: 400,
+									fontSize: 'var(--text-2xl)',
+									lineHeight: 'var(--leading-snug)',
+									color: 'var(--color-text-primary)',
+								}}
+							>
+								Tell me about your gathering
+							</h2>
+						)}
 					</div>
 					<button
 						type="button"
@@ -223,20 +239,36 @@ export default function InquiryModal({
 							/>
 						</FormField>
 
-						<FormField id="inquiry-email" label="Email" error={touched.email ? errors.email : undefined}>
-							<input
-								name="email"
-								type="email"
-								className="field-input"
-								autoComplete="email"
-								value={values.email}
-								onChange={(e) => handleChange('email', e.target.value)}
-								onBlur={() => handleBlur('email')}
-								aria-invalid={touched.email && !!errors.email}
-								aria-describedby={touched.email && errors.email ? 'inquiry-email-error' : undefined}
-								id="inquiry-email"
-							/>
-						</FormField>
+						<div className="date-location-grid">
+							<FormField id="inquiry-email" label="Email" error={touched.email ? errors.email : undefined} style={{ marginBottom: 0 }}>
+								<input
+									name="email"
+									type="email"
+									className="field-input"
+									autoComplete="email"
+									value={values.email}
+									onChange={(e) => handleChange('email', e.target.value)}
+									onBlur={() => handleBlur('email')}
+									aria-invalid={touched.email && !!errors.email}
+									aria-describedby={touched.email && errors.email ? 'inquiry-email-error' : undefined}
+									id="inquiry-email"
+								/>
+							</FormField>
+							<FormField id="inquiry-phone" label="Phone" error={touched.phone ? errors.phone : undefined} style={{ marginBottom: 0 }}>
+								<input
+									name="phone"
+									type="tel"
+									className="field-input"
+									autoComplete="tel"
+									value={values.phone}
+									onChange={(e) => handleChange('phone', e.target.value)}
+									onBlur={() => handleBlur('phone')}
+									aria-invalid={touched.phone && !!errors.phone}
+									aria-describedby={touched.phone && errors.phone ? 'inquiry-phone-error' : undefined}
+									id="inquiry-phone"
+								/>
+							</FormField>
+						</div>
 
 						<div className="date-location-grid">
 							<FormField id="inquiry-date" label="Date (if known)" style={{ marginBottom: 0 }}>
@@ -260,16 +292,20 @@ export default function InquiryModal({
 							</FormField>
 						</div>
 
-						<FormField id="inquiry-group-size" label="Estimated group size">
+						<FormField id="inquiry-group-size" label="Estimated group size" error={touched.groupSize ? errors.groupSize : undefined}>
 							<input
 								name="groupSize"
 								type="number"
 								inputMode="numeric"
 								min={1}
+								step={1}
 								className="field-input"
 								style={{ maxWidth: 160 }}
 								value={values.groupSize}
 								onChange={(e) => handleChange('groupSize', e.target.value)}
+								onBlur={() => handleBlur('groupSize')}
+								aria-invalid={touched.groupSize && !!errors.groupSize}
+								aria-describedby={touched.groupSize && errors.groupSize ? 'inquiry-group-size-error' : undefined}
 								id="inquiry-group-size"
 							/>
 						</FormField>
