@@ -89,6 +89,20 @@ export default defineType({
 			validation: (Rule) => Rule.email(),
 			group: 'links',
 		}),
+		defineField({
+			name: 'addressLocality',
+			title: 'City',
+			description: 'Used in structured data (JSON-LD) so AI search engines and answer bots can resolve where the business is based, e.g. "Portland".',
+			type: 'string',
+			group: 'info',
+		}),
+		defineField({
+			name: 'addressRegion',
+			title: 'State / region',
+			description: 'e.g. "OR". Used alongside City in structured data.',
+			type: 'string',
+			group: 'info',
+		}),
 	],
 	preview: {
 		prepare: () => ({

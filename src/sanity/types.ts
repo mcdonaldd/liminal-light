@@ -1210,6 +1210,8 @@ export type Site = {
 	bookingUrl?: string
 	substackUrl?: string
 	contactEmail?: string
+	addressLocality?: string
+	addressRegion?: string
 }
 
 export type Navigation = {
@@ -5351,6 +5353,8 @@ export type SITE_QUERY_RESULT = {
 	bookingUrl?: string
 	substackUrl?: string
 	contactEmail?: string
+	addressLocality?: string
+	addressRegion?: string
 } | null
 
 // Source: src/sanity/lib/queries.ts

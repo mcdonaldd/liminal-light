@@ -2,6 +2,7 @@ import { Instrument_Serif, Manrope } from 'next/font/google'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { preconnect } from 'react-dom'
 import { getSite } from '@/sanity/lib/queries'
+import OrganizationSchema from '@/ui/organization-schema'
 import VisualEditing from '@/ui/modules/visual-editing'
 import GrainOverlay from '@/ui/liminal/GrainOverlay'
 import Nav from '@/ui/liminal/Nav'
@@ -34,6 +35,7 @@ export default async function RootLayout({
 		<html lang="en" className={`${instrumentSerif.variable} ${manrope.variable}`}>
 			<NuqsAdapter>
 				<body className="antialiased">
+					<OrganizationSchema />
 					<a href="#main-content" className="skip-to-content">Skip to content</a>
 					<GrainOverlay />
 					<Nav bookingUrl={site?.bookingUrl} />

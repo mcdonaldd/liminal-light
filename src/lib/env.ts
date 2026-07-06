@@ -10,6 +10,10 @@ export const FALLBACK_SUBSTACK_URL = 'https://liminalight.substack.com'
 // Used when Site Settings' contactEmail hasn't been set in Sanity yet.
 export const FALLBACK_INQUIRY_EMAIL = 'hello@liminallight.help'
 
+// Used when Site Settings' addressLocality/addressRegion haven't been set in Sanity yet.
+export const FALLBACK_ADDRESS_LOCALITY = 'Portland'
+export const FALLBACK_ADDRESS_REGION = 'OR'
+
 export const ROUTES = {
 	studio: 'admin',
 	blog: 'blog',
