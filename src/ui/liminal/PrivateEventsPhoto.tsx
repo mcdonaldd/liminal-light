@@ -22,7 +22,7 @@ export default function PrivateEventsPhoto() {
 				style={{ objectFit: 'cover', objectPosition: 'center 68%' }}
 			/>
 			<ArcTransition variant="top" fill="var(--color-bg-primary)" offset={0.45} />
-			<ArcTransition variant="bottom" fill="var(--color-bg-dark)" offset={0.55} />
+			<ArcTransition variant="bottom" fill="var(--color-bg-primary)" offset={0.55} />
 		</div>
 	)
 }

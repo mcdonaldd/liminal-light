@@ -1,4 +1,5 @@
 import RevealOnScroll from './RevealOnScroll'
+import ArcTransition from './ArcTransition'
 
 export default function PrivateEventsSacred() {
 	return (
@@ -13,8 +14,7 @@ export default function PrivateEventsSacred() {
 				paddingInline: 'var(--space-6)',
 			}}
 		>
-			{/* No top arc here — the section above is a full-bleed photo, and its own
-			    bottom arc already carries the transition into this dark background. */}
+			<ArcTransition variant="top" fill="var(--color-bg-primary)" offset={0.5} />
 
 			<div style={{ position: 'relative', zIndex: 1, maxWidth: 'var(--container-md)', margin: '0 auto' }}>
 				<RevealOnScroll>
@@ -44,7 +44,7 @@ export default function PrivateEventsSacred() {
 						Sacred Gatherings and Thresholds
 					</h2>
 					<p style={{ fontStyle: 'italic', fontWeight: 300, fontSize: 'var(--text-base)', color: 'var(--color-text-on-dark-muted)', marginBottom: 'var(--space-6)' }}>
-						For weddings, full moon circles, grief rituals, and memorials.
+						For weddings, ceremonies, grief rituals, and memorials.
 					</p>
 				</RevealOnScroll>
 

@@ -76,13 +76,16 @@ export default function AboutBio() {
             {/* Extended bio */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
               <p style={{ fontSize: 'var(--text-lg)', fontWeight: 300, lineHeight: 'var(--leading-relaxed)', color: 'var(--color-text-secondary)' }}>
-                I'm a queer Coptic man, shaped by the wisdom of my heritage and a lifelong calling toward healing. I carry a New York state of mind — precise, curious, and direct — balanced by a West Coast approachability that keeps things grounded, open, and human.
+                I'm a queer Coptic man, shaped by the wisdom of my heritage and a lifelong calling toward healing. I carry a New York state of mind. Precise, curious, direct. It is balanced by a West Coast approachability that keeps things grounded, open, and human.
               </p>
               <p style={{ fontSize: 'var(--text-lg)', fontWeight: 300, lineHeight: 'var(--leading-relaxed)', color: 'var(--color-text-secondary)' }}>
-                I studied biomechanics at Cornell, and I've spent my life translating complex systems into something people can feel, understand, and act on. For over a decade, I lived in the world of high-stakes, high-pressure innovation — leading AI and machine learning initiatives for global tech giants and fast-paced startups. I did that work deeply and successfully, but I also learned intimately how those hyper-analytical, relentless environments can fragment us.
+                I know what it is to live in two worlds at once. I am queer and I am brown, the son of immigrants, and for a long time I believed that being fully myself and being fully loved by my family could not exist at the same time. Learning otherwise was slow work. I had to understand my parents as people carrying their own displacement, forgive them without pretending the hurt never happened, and learn to hold a boundary while keeping my heart open across it. I love them and I protect myself in the same breath. That is the work that taught me how to sit with anyone who feels like an outsider in their own family, their own relationship, their own skin.
               </p>
               <p style={{ fontSize: 'var(--text-lg)', fontWeight: 300, lineHeight: 'var(--leading-relaxed)', color: 'var(--color-text-secondary)' }}>
-                That chapter ultimately served as a bridge, calling me back to the wisdom of the body and the lineages that came before me. Today, my clinical and systemic foundation is anchored by my work in the <em>Under the Eagle's Wing</em> fellowship with Shayne Case. There, I've deepened my practice in the ethics of spiritual power, ancestral healing, and the art of holding sacred ceremony — walking with the teachings of the medicine wheel to help others map the earth, fire, air, and water they contain, return them to balance, and greet the rascals along the way.
+                I studied biomechanics at Cornell, and I've spent my life translating complex systems into something people can feel, understand, and act on. For over a decade, I lived in the world of high-stakes, high-pressure innovation. I led AI and machine learning initiatives for global tech giants and fast-paced startups. I did that work deeply and successfully, but I also learned intimately how those hyper-analytical, relentless environments can fragment us.
+              </p>
+              <p style={{ fontSize: 'var(--text-lg)', fontWeight: 300, lineHeight: 'var(--leading-relaxed)', color: 'var(--color-text-secondary)' }}>
+                That chapter ultimately served as a bridge, calling me back to the wisdom of the body and the lineages that came before me. Today, my clinical and systemic foundation is anchored by my work in the <em>Under the Eagle's Wing</em> fellowship with Shayne Case. There, I've deepened my practice in the ethics of spiritual power, ancestral healing, and the art of holding sacred ceremony, walking with the teachings of the medicine wheel to help others map the earth, fire, air, and water they contain, return them to balance, and greet the rascals along the way.
               </p>
 
             </div>
@@ -118,10 +121,10 @@ export default function AboutBio() {
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
               <p style={{ fontSize: 'var(--text-lg)', fontWeight: 300, lineHeight: 'var(--leading-relaxed)', color: 'var(--color-text-secondary)' }}>
-                As I stepped fully into this vocation, I gathered specific tools to support that return. Trained as a Reiki practitioner, I work to hold a grounded, "hollow bone" presence, using energy and the resonance of vibrational sound therapy with singing bowls to help an overstimulated nervous system finally drop out of the analytical mind and settle into the body. To ground this work further, I trained in conflict mediation, bringing a steady presence to the tight places where we carry tension — both within our relationships and within ourselves.
+                As I stepped fully into this vocation, I gathered specific tools to support that return. Trained as a Reiki practitioner, I work to hold a grounded, "hollow bone" presence, using energy and the resonance of vibrational sound therapy with singing bowls to help an overstimulated nervous system finally drop out of the analytical mind and settle into the body. To ground this work further, I trained in conflict mediation, bringing a steady presence to the tight places where we carry tension, both within our relationships and within ourselves.
               </p>
               <p style={{ fontSize: 'var(--text-lg)', fontWeight: 300, lineHeight: 'var(--leading-relaxed)', color: 'var(--color-text-secondary)' }}>
-                I believe in divine energy, in the power of song, in the life force that connects us all. There's so much pain and disconnection in the world — but I believe our deepest work is to make space for love to move through us. My vocation is to help people remember what's already within them.
+                I believe in divine energy, in the power of song, in the life force that connects us all. There's so much pain and disconnection in the world. I believe our deepest work is to make space for love to move through us. My vocation is to help people remember what's already within them.
               </p>
             </div>
           </div>

@@ -22,9 +22,12 @@ export default function ArcTransition({ variant, fill, offset = 0.5, depth = 1.0
 	const peak = Math.round(offset * 1440)
 	const gradientId = `arc-gradient-${variant}-${Math.round(offset * 100)}`
 
-	// Single quadratic bezier — one clean arc, apex at `peak`, depth controls how far it bows
-	const bottomCtrl = Math.round(64 - depth * 48)  // < 64 bows up into image
-	const topCtrl    = Math.round(16 + depth * 48)  // > 16 sags down into section
+	// Single quadratic bezier — one clean arc, apex at `peak`, depth controls how far it bows.
+	// Control-point range is clamped so the curve never exceeds the SVG's own viewBox height
+	// (an overflowing control point gets clipped mid-curve, which reads as a broken double-hump).
+	const clampedDepth = Math.max(0, Math.min(1.2, depth))
+	const bottomCtrl = Math.round(64 - clampedDepth * 44)  // stays within [20, 64]
+	const topCtrl    = Math.round(16 + clampedDepth * 44)  // stays within [16, 68], clipped just slightly at max
 
 	let fillPath = ''
 	let strokePath = ''
