@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import FoilArc from './FoilArc'
+import NewsletterFooterLink from './NewsletterFooterLink'
 
 export default function LiminalFooter() {
 	return (
@@ -102,6 +103,7 @@ export default function LiminalFooter() {
 					>
 						Substack
 					</a>
+					<NewsletterFooterLink />
 				</div>
 			</div>
 
