@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-import { getEvents } from '@/sanity/lib/queries'
-import BookingCTA from '@/ui/liminal/BookingCTA'
+import { getEvents, getSite } from '@/sanity/lib/queries'
 import EventCard from '@/ui/liminal/EventCard'
 import LiminalFooter from '@/ui/liminal/LiminalFooter'
+import PrivateEventsCTA from '@/ui/liminal/PrivateEventsCTA'
 
 export const metadata: Metadata = {
 	title: 'Events — Liminal Light',
@@ -13,7 +13,10 @@ export const metadata: Metadata = {
 export const revalidate = 3600
 
 export default async function EventsPage() {
-	const { upcoming, past } = (await getEvents()) ?? { upcoming: [], past: [] }
+	const [{ upcoming, past }, site] = await Promise.all([
+		getEvents().then((events) => events ?? { upcoming: [], past: [] }),
+		getSite(),
+	])
 
 	return (
 		<>
@@ -129,7 +132,7 @@ export default async function EventsPage() {
 					)}
 				</div>
 			</section>
-			<BookingCTA />
+			<PrivateEventsCTA contactEmail={site?.contactEmail} dark />
 			<LiminalFooter />
 		</>
 	)
