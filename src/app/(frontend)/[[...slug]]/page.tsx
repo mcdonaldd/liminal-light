@@ -31,6 +31,8 @@ const SANITY_CONFIGURED =
 	!!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID &&
 	process.env.NEXT_PUBLIC_SANITY_PROJECT_ID !== 'placeholder'
 
+export const revalidate = 3600
+
 export default async function Page({ params }: Props) {
 	const { slug } = await params
 	const isRoot = !slug || slug.length === 0
