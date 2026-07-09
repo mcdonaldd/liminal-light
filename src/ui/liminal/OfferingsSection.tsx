@@ -37,7 +37,7 @@ const offerings = [
     availability: null,
     notice: null,
     ctaLabel: 'Book a session',
-    ctaHref: 'https://cal.com/liminallight/15min',
+    ctaHref: 'https://cal.com/liminallight/remote-reiki-session',
     dark: false,
   },
   {
