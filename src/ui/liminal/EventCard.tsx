@@ -30,9 +30,8 @@ export default function EventCard({ event, muted = false }: { event: Event; mute
 
 	return (
 		<article
+			className="media-row-card"
 			style={{
-				display: 'flex',
-				maxHeight: 220,
 				backgroundColor: 'var(--color-bg-surface)',
 				border: '1px solid var(--color-border)',
 				borderRadius: 'var(--radius-lg)',
@@ -43,12 +42,9 @@ export default function EventCard({ event, muted = false }: { event: Event; mute
 		>
 			{event.image && (
 				<div
+					className="media-row-card-media"
 					style={{
 						position: 'relative',
-						width: '38%',
-						minWidth: 120,
-						maxWidth: 220,
-						flexShrink: 0,
 						backgroundColor: 'var(--color-border)',
 					}}
 				>
@@ -114,15 +110,13 @@ export default function EventCard({ event, muted = false }: { event: Event; mute
 				</div>
 
 				<h3
+					className="media-row-card-title"
 					style={{
 						fontFamily: 'var(--font-display)',
 						fontWeight: 400,
 						fontSize: 'var(--text-xl)',
 						lineHeight: 'var(--leading-snug)',
 						color: 'var(--color-text-primary)',
-						overflow: 'hidden',
-						textOverflow: 'ellipsis',
-						whiteSpace: 'nowrap',
 					}}
 				>
 					{event.title}
@@ -130,13 +124,11 @@ export default function EventCard({ event, muted = false }: { event: Event; mute
 
 				{(event.locationName || event.address) && (
 					<p
+						className="media-row-card-location"
 						style={{
 							fontWeight: 500,
 							fontSize: 'var(--text-sm)',
 							color: 'var(--color-text-secondary)',
-							overflow: 'hidden',
-							textOverflow: 'ellipsis',
-							whiteSpace: 'nowrap',
 						}}
 					>
 						{event.locationName}

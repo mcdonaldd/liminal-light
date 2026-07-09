@@ -474,6 +474,49 @@ dialog.inquiry-modal[open]::backdrop {
   color: var(--color-accent-ember-hover);
 }
 
+/* ─── Media Row Card (image + content side-by-side; stacks on mobile) ── */
+/* Shared by EventCard and SubstackPostCard. Below 640px there isn't room
+   for a cropped thumbnail next to single-line-truncated text — the image
+   moves above the content at full width and text is allowed to wrap. */
+
+.media-row-card {
+  display: flex;
+  max-height: 220px;
+}
+
+.media-row-card-media {
+  width: 38%;
+  min-width: 120px;
+  max-width: 220px;
+  flex-shrink: 0;
+}
+
+.media-row-card-title,
+.media-row-card-location {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .media-row-card {
+    flex-direction: column;
+    max-height: none;
+  }
+  .media-row-card-media {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    aspect-ratio: 16 / 9;
+  }
+  .media-row-card-title,
+  .media-row-card-location {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+  }
+}
+
 @media (hover: hover) {
   .offering-card {
     transition: transform 0.3s cubic-bezier(0.16,1,0.3,1),

@@ -15,10 +15,8 @@ export default function SubstackPostCard({ post }: { post: SubstackPost }) {
 			href={post.link}
 			target="_blank"
 			rel="noopener noreferrer"
-			className="post-card"
+			className="post-card media-row-card"
 			style={{
-				display: 'flex',
-				maxHeight: 220,
 				backgroundColor: 'var(--color-bg-surface)',
 				border: '1px solid var(--color-border)',
 				borderRadius: 'var(--radius-lg)',
@@ -29,12 +27,9 @@ export default function SubstackPostCard({ post }: { post: SubstackPost }) {
 		>
 			{post.thumbnail && (
 				<div
+					className="media-row-card-media"
 					style={{
 						position: 'relative',
-						width: '38%',
-						minWidth: 120,
-						maxWidth: 220,
-						flexShrink: 0,
 						backgroundColor: 'var(--color-border)',
 					}}
 				>
@@ -69,15 +64,13 @@ export default function SubstackPostCard({ post }: { post: SubstackPost }) {
 				)}
 
 				<h3
+					className="media-row-card-title"
 					style={{
 						fontFamily: 'var(--font-display)',
 						fontWeight: 400,
 						fontSize: 'var(--text-xl)',
 						lineHeight: 'var(--leading-snug)',
 						color: 'var(--color-text-primary)',
-						overflow: 'hidden',
-						textOverflow: 'ellipsis',
-						whiteSpace: 'nowrap',
 					}}
 				>
 					{post.title}
