@@ -1,10 +1,11 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import NewsletterForm from './NewsletterForm'
 
 export default function NewsletterModal({ open, onClose }: { open: boolean; onClose: () => void }) {
 	const dialogRef = useRef<HTMLDialogElement>(null)
+	const [formKey, setFormKey] = useState(0)
 
 	useEffect(() => {
 		const dialog = dialogRef.current
@@ -21,6 +22,8 @@ export default function NewsletterModal({ open, onClose }: { open: boolean; onCl
 
 		if (open && !dialog.open) {
 			dialog.showModal()
+			// Reset to a fresh form each time the modal is opened.
+			setFormKey((k) => k + 1)
 		} else if (!open && dialog.open) {
 			dialog.close()
 		}
@@ -77,7 +80,7 @@ export default function NewsletterModal({ open, onClose }: { open: boolean; onCl
 					Occasional notes on upcoming gatherings and new writing — no spam, unsubscribe anytime.
 				</p>
 
-				<NewsletterForm />
+				<NewsletterForm key={formKey} />
 			</div>
 		</dialog>
 	)
