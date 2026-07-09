@@ -18,8 +18,8 @@ export default async function PrivateEventsPage() {
 
 	return (
 		<>
-			<PrivateEventsPhoto />
 			<PrivateEventsIntro />
+			<PrivateEventsPhoto />
 			<PrivateEventsCorporate />
 			<PrivateEventsSacred />
 			<PrivateEventsCTA contactEmail={site?.contactEmail} />
