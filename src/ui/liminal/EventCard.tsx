@@ -69,7 +69,7 @@ export default function EventCard({ event, muted = false }: { event: Event; mute
 					overflow: 'hidden',
 				}}
 			>
-				<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--space-3)' }}>
+				<div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--space-3)' }}>
 					{tag && (
 						<span
 							style={{
