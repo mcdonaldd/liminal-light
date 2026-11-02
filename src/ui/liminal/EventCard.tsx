@@ -14,13 +14,13 @@ const EVENT_TYPE_TAGS: Record<string, { bg: string; color: string }> = {
 function formatEventDate(iso: string) {
 	const date = new Date(iso)
 	if (Number.isNaN(date.getTime())) return ''
-	return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(date)
+	return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'America/Los_Angeles' }).format(date)
 }
 
 function formatEventTime(iso: string) {
 	const date = new Date(iso)
 	if (Number.isNaN(date.getTime())) return ''
-	return new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit' }).format(date)
+	return new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/Los_Angeles' }).format(date)
 }
 
 export default function EventCard({ event, muted = false }: { event: Event; muted?: boolean }) {
@@ -144,11 +144,7 @@ export default function EventCard({ event, muted = false }: { event: Event; mute
 							fontSize: 'var(--text-sm)',
 							lineHeight: 'var(--leading-relaxed)',
 							color: 'var(--color-text-secondary)',
-							flex: 1,
-							display: '-webkit-box',
-							WebkitLineClamp: 2,
-							WebkitBoxOrient: 'vertical',
-							overflow: 'hidden',
+							whiteSpace: 'pre-line',
 						}}
 					>
 						{event.description}
