@@ -481,7 +481,7 @@ dialog.inquiry-modal[open]::backdrop {
 
 .media-row-card {
   display: flex;
-  max-height: 220px;
+  align-items: stretch;
 }
 
 .media-row-card-media {
@@ -493,9 +493,9 @@ dialog.inquiry-modal[open]::backdrop {
 
 .media-row-card-title,
 .media-row-card-location {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
 }
 
 @media (max-width: 640px) {
