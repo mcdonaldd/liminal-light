@@ -21,7 +21,7 @@ const offerings = [
     availability: null,
     notice: null,
     ctaLabel: 'Book a session',
-    ctaHref: 'https://cal.com/liminallight/reiki-and-vibrational-sound',
+    ctaHref: 'https://clients.mindbodyonline.com/classic/ws?studioid=24525&stype=-106',
     dark: false,
   },
   {
