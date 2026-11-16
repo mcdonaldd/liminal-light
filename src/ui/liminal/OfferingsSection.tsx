@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { Energy, River, Ember, Air } from './icons'
 import RevealOnScroll from './RevealOnScroll'
@@ -21,7 +21,8 @@ const offerings = [
     availability: null,
     notice: null,
     ctaLabel: 'Book a session',
-    ctaHref: 'https://clients.mindbodyonline.com/classic/ws?studioid=24525&stype=-106',
+    ctaHref: '',
+    bookingModal: true,
     dark: false,
   },
   {
@@ -75,8 +76,93 @@ const offerings = [
   },
 ]
 
+function MindbodyModal({ onClose }: { onClose: () => void }) {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    // Inject the MindBody widget script
+    const script = document.createElement('script')
+    script.src = 'https://brandedweb.mindbodyonline.com/embed/widget.js'
+    script.async = true
+    document.body.appendChild(script)
+    return () => {
+      document.body.style.overflow = ''
+      document.body.removeChild(script)
+    }
+  }, [])
+
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 1000,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 'var(--space-4)',
+        backgroundColor: 'rgba(0,0,0,0.6)',
+        backdropFilter: 'blur(4px)',
+      }}
+      onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
+    >
+      <div
+        ref={containerRef}
+        style={{
+          position: 'relative',
+          width: '100%',
+          maxWidth: '520px',
+          maxHeight: '90vh',
+          backgroundColor: 'var(--color-bg-surface)',
+          borderRadius: 'var(--radius-lg)',
+          overflow: 'auto',
+          boxShadow: 'var(--shadow-lg)',
+        }}
+      >
+        {/* Close button */}
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close booking"
+          style={{
+            position: 'sticky',
+            top: 'var(--space-3)',
+            left: '100%',
+            float: 'right',
+            margin: 'var(--space-3) var(--space-3) 0 0',
+            width: 32,
+            height: 32,
+            borderRadius: '50%',
+            border: '1px solid var(--color-border)',
+            backgroundColor: 'var(--color-bg-primary)',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 18,
+            lineHeight: 1,
+            color: 'var(--color-text-primary)',
+            zIndex: 1,
+          }}
+        >
+          ×
+        </button>
+        <div style={{ padding: 'var(--space-4)', paddingTop: 'var(--space-2)' }}>
+          <div
+            className="mindbody-widget"
+            data-widget-type="Appointments"
+            data-widget-id="7a7446975b2"
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function OfferingsSection() {
   const [openExpect, setOpenExpect] = useState<number | null>(null)
+  const [bookingOpen, setBookingOpen] = useState(false)
 
   return (
     <section
@@ -279,7 +365,16 @@ export default function OfferingsSection() {
               )}
 
               {/* CTA */}
-              {offering.ctaHref.startsWith('/') ? (
+              {(offering as typeof offering & { bookingModal?: boolean }).bookingModal ? (
+                <button
+                  type="button"
+                  onClick={() => setBookingOpen(true)}
+                  className="btn-secondary"
+                  style={{ textAlign: 'center', justifyContent: 'center', marginTop: 'auto', cursor: 'pointer' }}
+                >
+                  {offering.ctaLabel}
+                </button>
+              ) : offering.ctaHref.startsWith('/') ? (
                 <Link href={offering.ctaHref} className="btn-secondary" style={{ textAlign: 'center', justifyContent: 'center', marginTop: 'auto' }}>
                   {offering.ctaLabel}
                 </Link>
@@ -296,6 +391,7 @@ export default function OfferingsSection() {
 
 
       </div>
+      {bookingOpen && <MindbodyModal onClose={() => setBookingOpen(false)} />}
     </section>
   )
 }
